@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#2f9e6e">
+<title>🌍 여행 영어 - 기초·생존 영어 학습</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%232f9e6e'/%3E%3Ctext x='50' y='72' font-size='60' text-anchor='middle'%3E%F0%9F%8C%8D%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --green:#2f9e6e; --green-d:#227a54; --green-l:#e6f5ee; --green-ll:#f4fbf7;
+  --ink:#173a2c; --sub:#5a7a6b; --line:#d8ebe1; --bg:#eef7f2; --card:#ffffff;
+  --gold:#f2a900; --red:#e2574c; --shadow:0 4px 18px rgba(34,122,84,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:'Apple SD Gothic Neo','Malgun Gothic','Segoe UI',system-ui,sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.5;overscroll-behavior:none}
+#app{max-width:520px;margin:0 auto;min-height:100vh;background:var(--bg);position:relative;padding-bottom:24px}
+.screen{display:none;padding:16px 16px 40px;animation:fade .25s ease}
+.screen.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.topbar{position:sticky;top:0;z-index:20;background:var(--green);color:#fff;
+  display:flex;align-items:center;gap:10px;padding:12px 14px;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.topbar h1{font-size:17px;font-weight:800;flex:1;letter-spacing:-.3px}
+.topbar .icn{width:38px;height:38px;border:none;border-radius:12px;background:rgba(255,255,255,.16);
+  color:#fff;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s}
+.topbar .icn:active{transform:scale(.9)}
+.stat{display:flex;gap:6px;align-items:center;font-weight:800;font-size:14px;
+  background:rgba(255,255,255,.16);padding:6px 10px;border-radius:20px}
+.hero{text-align:center;padding:24px 10px 10px}
+.hero .globe{font-size:60px;line-height:1;filter:drop-shadow(0 6px 10px rgba(34,122,84,.25))}
+.hero h2{font-size:24px;font-weight:900;margin-top:8px;letter-spacing:-.5px}
+.hero p{color:var(--sub);font-size:14px;margin-top:4px}
+.goalcard{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:16px;
+  display:flex;align-items:center;gap:16px;margin:0 0 14px}
+.ring{position:relative;width:74px;height:74px;flex:none}
+.ring svg{transform:rotate(-90deg)}
+.ring .val{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:15px;color:var(--green-d)}
+.goalcard .g-txt{flex:1}
+.goalcard .g-txt b{font-size:15px}
+.goalcard .g-txt span{display:block;color:var(--sub);font-size:13px;margin-top:2px}
+.menu{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.menu .big{grid-column:1/3}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 16px;
+  cursor:pointer;box-shadow:var(--shadow);transition:.15s;text-align:left;font:inherit;color:inherit}
+.tile:active{transform:scale(.97)}
+.tile .emo{font-size:30px}
+.tile h3{font-size:16px;font-weight:800;margin-top:8px}
+.tile p{color:var(--sub);font-size:12.5px;margin-top:3px}
+.tile.big{background:linear-gradient(135deg,var(--green),var(--green-d));color:#fff;border:none}
+.tile.big p{color:rgba(255,255,255,.85)}
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.cat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 12px;
+  cursor:pointer;box-shadow:var(--shadow);font:inherit;color:inherit;text-align:left;transition:.15s}
+.cat:active{transform:scale(.96)}
+.cat .emo{font-size:24px}
+.cat b{display:block;font-size:14px;margin-top:6px;font-weight:800}
+.cat span{color:var(--sub);font-size:12px}
+.section-title{font-size:15px;font-weight:800;margin:6px 2px 4px;color:var(--green-d)}
+.progressbar{height:8px;background:var(--line);border-radius:10px;overflow:hidden;margin:6px 2px 14px}
+.progressbar>i{display:block;height:100%;background:var(--green);border-radius:10px;transition:width .3s}
+.qmeta{display:flex;justify-content:space-between;align-items:center;margin:2px 2px 10px;font-size:13px;color:var(--sub);font-weight:700}
+.combo{color:var(--gold)}
+.qcard{background:var(--card);border-radius:20px;box-shadow:var(--shadow);padding:26px 18px;text-align:center;margin-bottom:16px}
+.qtype{display:inline-block;font-size:12px;font-weight:800;color:var(--green-d);background:var(--green-l);
+  padding:5px 12px;border-radius:20px;margin-bottom:14px}
+.qword{font-size:32px;font-weight:900;letter-spacing:-.5px;word-break:break-word}
+.qipa{color:var(--sub);font-size:15px;margin-top:6px;font-family:'Times New Roman',serif}
+.qsub{color:var(--sub);font-size:14px;margin-top:6px}
+.listen-btn{margin-top:16px;background:var(--green);color:#fff;border:none;border-radius:50px;
+  padding:14px 26px;font-size:16px;font-weight:800;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+.listen-btn:active{transform:scale(.95)}
+.listen-btn.big{font-size:34px;width:96px;height:96px;border-radius:50%;justify-content:center;padding:0}
+.choices{display:grid;gap:10px}
+.choice{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:16px;
+  font-size:16px;font-weight:700;cursor:pointer;text-align:center;transition:.12s;color:var(--ink);font-family:inherit}
+.choice:active{transform:scale(.98)}
+.choice.correct{background:var(--green-l);border-color:var(--green);color:var(--green-d)}
+.choice.wrong{background:#fdecea;border-color:var(--red);color:var(--red)}
+.choice:disabled{cursor:default}
+.result{text-align:center;padding-top:20px}
+.result .big-emo{font-size:70px}
+.result h2{font-size:26px;font-weight:900;margin-top:6px}
+.scorebox{background:var(--card);border-radius:20px;box-shadow:var(--shadow);padding:22px;margin:16px 0;
+  display:flex;justify-content:space-around}
+.scorebox div b{font-size:26px;color:var(--green-d);display:block;font-weight:900}
+.scorebox div span{font-size:12px;color:var(--sub)}
+.btn{display:block;width:100%;border:none;border-radius:14px;padding:15px;font-size:16px;font-weight:800;
+  cursor:pointer;margin-top:10px;font-family:inherit;transition:.15s}
+.btn:active{transform:scale(.98)}
+.btn.primary{background:var(--green);color:#fff}
+.btn.ghost{background:var(--card);color:var(--green-d);border:2px solid var(--line)}
+.btn.gold{background:var(--gold);color:#5a3d00}
+.searchbar{display:flex;gap:8px;margin-bottom:10px}
+.searchbar input{flex:1;border:2px solid var(--line);border-radius:14px;padding:13px 14px;font-size:15px;
+  outline:none;font-family:inherit;background:var(--card)}
+.searchbar input:focus{border-color:var(--green)}
+.filters{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.chip{border:2px solid var(--line);background:var(--card);border-radius:20px;padding:7px 14px;
+  font-size:13px;font-weight:700;cursor:pointer;color:var(--sub);font-family:inherit;transition:.12s}
+.chip.on{background:var(--green);color:#fff;border-color:var(--green)}
+.count-line{font-size:13px;color:var(--sub);margin:2px 2px 10px;font-weight:700}
+.wcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 14px;
+  margin-bottom:9px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 8px rgba(34,122,84,.06)}
+.wcard .w-main{flex:1;min-width:0}
+.wcard .w-en{font-size:17px;font-weight:800}
+.wcard .w-en .pos{font-size:11px;color:var(--green-d);background:var(--green-l);padding:2px 7px;
+  border-radius:8px;margin-left:6px;font-weight:700;vertical-align:middle}
+.wcard .w-ipa{color:var(--sub);font-size:13px;font-family:'Times New Roman',serif}
+.wcard .w-ko{font-size:14.5px;margin-top:2px}
+.wcard .w-cat{font-size:11px;color:var(--sub);margin-top:3px}
+.wcard .spk{flex:none;width:44px;height:44px;border:none;border-radius:12px;background:var(--green-l);
+  color:var(--green-d);font-size:20px;cursor:pointer;transition:.12s}
+.wcard .spk:active{transform:scale(.88)}
+.lvl-badge{font-size:10px;font-weight:800;padding:2px 7px;border-radius:8px;margin-left:6px}
+.lvl1{background:#e6f5ee;color:#227a54}
+.lvl2{background:#fff2d6;color:#a06f00}
+.lvl3{background:#fde7e4;color:#b13c30}
+.empty{text-align:center;color:var(--sub);padding:40px 20px;font-size:14px}
+.scard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px;
+  margin-bottom:9px;box-shadow:0 2px 8px rgba(34,122,84,.06)}
+.scard .s-top{display:flex;align-items:flex-start;gap:12px}
+.scard .s-en{flex:1;font-size:16px;font-weight:700;line-height:1.4}
+.scard .s-ko{color:var(--sub);font-size:14px;margin-top:6px}
+.scard .spk{flex:none;width:42px;height:42px;border:none;border-radius:12px;background:var(--green-l);
+  color:var(--green-d);font-size:19px;cursor:pointer}
+.scard .spk:active{transform:scale(.88)}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(23,58,44,.45);z-index:50;
+  align-items:flex-end;justify-content:center}
+.modal-bg.show{display:flex}
+.modal{background:var(--card);width:100%;max-width:520px;border-radius:22px 22px 0 0;padding:20px 20px 30px;animation:up .25s ease}
+@keyframes up{from{transform:translateY(100%)}to{transform:none}}
+.modal h3{font-size:18px;font-weight:900;margin-bottom:14px}
+.setrow{display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--line)}
+.setrow:last-of-type{border:none}
+.setrow .lbl b{font-size:15px}
+.setrow .lbl span{display:block;font-size:12px;color:var(--sub)}
+.toggle{width:52px;height:30px;border-radius:20px;background:var(--line);position:relative;cursor:pointer;transition:.2s;border:none;flex:none}
+.toggle.on{background:var(--green)}
+.toggle::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.toggle.on::after{left:25px}
+.seg{display:flex;background:var(--green-l);border-radius:12px;padding:4px;gap:4px}
+.seg button{border:none;background:none;padding:8px 12px;border-radius:9px;font-weight:800;font-size:13px;color:var(--sub);cursor:pointer;font-family:inherit}
+.seg button.on{background:#fff;color:var(--green-d);box-shadow:0 1px 4px rgba(0,0,0,.1)}
+.danger{color:var(--red);font-weight:800;background:none;border:none;font-size:14px;cursor:pointer;margin-top:14px;padding:8px;font-family:inherit}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;
+  padding:12px 22px;border-radius:30px;font-weight:700;font-size:14px;z-index:99;opacity:0;transition:.3s;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1}
+.footer-note{text-align:center;color:var(--sub);font-size:11px;margin-top:22px;opacity:.8}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="topbar">
+    <button class="icn" id="homeBtn" title="홈">🏠</button>
+    <h1 id="barTitle">🌍 여행 영어</h1>
+    <div class="stat" title="연속 학습일"><span>🔥</span><span id="streakNum">0</span></div>
+    <button class="icn" id="setBtn" title="설정">⚙️</button>
+  </div>
+
+  <section class="screen active" id="s-home">
+    <div class="hero">
+      <div class="globe">🌍</div>
+      <h2>여행 영어</h2>
+      <p>기초 회화부터 해외여행 생존 영어까지</p>
+    </div>
+    <div class="goalcard">
+      <div class="ring">
+        <svg width="74" height="74">
+          <circle cx="37" cy="37" r="31" stroke="#e6f5ee" stroke-width="9" fill="none"/>
+          <circle id="goalArc" cx="37" cy="37" r="31" stroke="#2f9e6e" stroke-width="9" fill="none"
+            stroke-linecap="round" stroke-dasharray="195" stroke-dashoffset="195"/>
+        </svg>
+        <div class="val" id="goalVal">0/20</div>
+      </div>
+      <div class="g-txt">
+        <b>오늘의 목표</b>
+        <span id="goalDesc">퀴즈 20문제 풀기</span>
+      </div>
+    </div>
+    <div class="menu">
+      <button class="tile big" data-go="cat"><div class="emo">📝</div><h3>주제별 단어 퀴즈</h3><p>주제 선택 → 4지선다 10문제</p></button>
+      <button class="tile" id="resumeTile" style="display:none" data-go="resume"><div class="emo">⏯️</div><h3 style="font-size:15px">이어하기</h3><p id="resumeDesc"></p></button>
+      <button class="tile" data-go="review"><div class="emo">🔁</div><h3 style="font-size:15px">오답 복습</h3><p id="reviewDesc">0개 대기</p></button>
+      <button class="tile" data-go="dict"><div class="emo">📖</div><h3 style="font-size:15px">단어 사전</h3><p id="dictCount">단어 검색·발음</p></button>
+      <button class="tile" data-go="phr"><div class="emo">💬</div><h3 style="font-size:15px">회화 문장</h3><p>상황별 여행 표현</p></button>
+    </div>
+    <p class="footer-note">🔊 발음은 미국식 원어민 음성(TTS)으로 재생됩니다</p>
+  </section>
+
+  <section class="screen" id="s-cat">
+    <p class="section-title">주제를 골라 퀴즈를 시작하세요</p>
+    <p class="count-line" id="catHint">각 주제 10문제 · 영어↔뜻 + 듣기 문제 혼합</p>
+    <div class="cat-grid" id="catGrid"></div>
+  </section>
+
+  <section class="screen" id="s-quiz">
+    <div class="qmeta">
+      <span id="qCount">1 / 10</span>
+      <span class="combo" id="qCombo"></span>
+    </div>
+    <div class="progressbar"><i id="qBar" style="width:0%"></i></div>
+    <div class="qcard" id="qCard"></div>
+    <div class="choices" id="qChoices"></div>
+  </section>
+
+  <section class="screen" id="s-result">
+    <div class="result">
+      <div class="big-emo" id="rEmo">🎉</div>
+      <h2 id="rTitle">완료!</h2>
+      <div class="scorebox">
+        <div><b id="rScore">0</b><span>정답</span></div>
+        <div><b id="rTotal">10</b><span>문제</span></div>
+        <div><b id="rPct">0%</b><span>정답률</span></div>
+      </div>
+      <button class="btn primary" id="retryBtn">다시 풀기</button>
+      <button class="btn gold" id="rReviewBtn" style="display:none">오답 복습하기</button>
+      <button class="btn ghost" data-go="cat">다른 주제 선택</button>
+      <button class="btn ghost" data-go="home">홈으로</button>
+    </div>
+  </section>
+
+  <section class="screen" id="s-dict">
+    <div class="searchbar">
+      <input id="dictSearch" type="text" placeholder="영어 또는 한국어 뜻으로 검색" autocomplete="off">
+    </div>
+    <div class="filters" id="lvlFilters">
+      <button class="chip on" data-lvl="all">전체</button>
+      <button class="chip" data-lvl="1">기초</button>
+      <button class="chip" data-lvl="2">중급</button>
+    </div>
+    <div class="filters" id="catFilters"></div>
+    <p class="count-line" id="dictResult"></p>
+    <div id="dictList"></div>
+  </section>
+
+  <section class="screen" id="s-phr">
+    <div class="filters" id="phrFilters"></div>
+    <div id="phrList"></div>
+  </section>
+</div>
+
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <h3>⚙️ 설정</h3>
+    <div class="setrow">
+      <div class="lbl"><b>효과음</b><span>정답 딩동댕 / 오답 땡</span></div>
+      <button class="toggle on" id="tgSound"></button>
+    </div>
+    <div class="setrow">
+      <div class="lbl"><b>자동 발음</b><span>퀴즈 문제 나올 때 자동 재생</span></div>
+      <button class="toggle" id="tgAutoTTS"></button>
+    </div>
+    <div class="setrow">
+      <div class="lbl"><b>발음 속도</b><span>TTS 재생 속도</span></div>
+      <div class="seg" id="segRate">
+        <button data-rate="0.7">느리게</button>
+        <button data-rate="0.9" class="on">보통</button>
+        <button data-rate="1">빠르게</button>
+      </div>
+    </div>
+    <div class="setrow">
+      <div class="lbl"><b>일일 목표</b><span>하루 목표 문제 수</span></div>
+      <div class="seg" id="segGoal">
+        <button data-goal="10">10</button>
+        <button data-goal="20" class="on">20</button>
+        <button data-goal="30">30</button>
+      </div>
+    </div>
+    <button class="danger" id="resetBtn">⚠️ 학습 기록 초기화</button>
+    <button class="btn primary" id="closeModal" style="margin-top:16px">닫기</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const DICT=[["hello", "int", "hɛˈloʊ", "안녕하세요", 1, "인사·기본표현"], ["hi", "int", "haɪ", "안녕(친근한 인사)", 1, "인사·기본표현"], ["goodbye", "int", "ˌgʊdˈbaɪ", "안녕히 가세요, 잘 가", 1, "인사·기본표현"], ["bye", "int", "baɪ", "잘 가, 안녕", 1, "인사·기본표현"], ["please", "adv", "pliz", "부디, 제발(부탁할 때)", 1, "인사·기본표현"], ["thanks", "int", "θæŋks", "고마워요", 1, "인사·기본표현"], ["thank you", "int", "θæŋk ju", "감사합니다", 1, "인사·기본표현"], ["sorry", "adj", "ˈsɑri", "미안합니다, 죄송합니다", 1, "인사·기본표현"], ["excuse me", "int", "ɪkˈskjuz mi", "실례합니다", 1, "인사·기본표현"], ["welcome", "int", "ˈwɛlkəm", "환영합니다", 1, "인사·기본표현"], ["yes", "adv", "jɛs", "네, 예", 1, "인사·기본표현"], ["no", "adv", "noʊ", "아니요", 1, "인사·기본표현"], ["okay", "adj", "ˌoʊˈkeɪ", "좋아요, 괜찮아요", 1, "인사·기본표현"], ["maybe", "adv", "ˈmeɪbi", "아마도", 1, "인사·기본표현"], ["sure", "adv", "ʃʊr", "물론이죠", 1, "인사·기본표현"], ["of course", "adv", "əv kɔrs", "당연하죠", 1, "인사·기본표현"], ["name", "n", "neɪm", "이름", 1, "인사·기본표현"], ["friend", "n", "frɛnd", "친구", 1, "인사·기본표현"], ["family", "n", "ˈfæməli", "가족", 1, "인사·기본표현"], ["people", "n", "ˈpipəl", "사람들", 1, "인사·기본표현"], ["person", "n", "ˈpərsən", "사람", 1, "인사·기본표현"], ["man", "n", "mæn", "남자", 1, "인사·기본표현"], ["woman", "n", "ˈwʊmən", "여자", 1, "인사·기본표현"], ["child", "n", "ʧaɪld", "아이", 1, "인사·기본표현"], ["kid", "n", "kɪd", "아이, 꼬마", 1, "인사·기본표현"], ["baby", "n", "ˈbeɪbi", "아기", 1, "인사·기본표현"], ["mister", "n", "ˈmɪstər", "~씨(남성 호칭)", 1, "인사·기본표현"], ["madam", "n", "ˈmædəm", "부인, 사모님", 2, "인사·기본표현"], ["introduce", "v", "ˌɪntrəˈdus", "소개하다", 2, "인사·기본표현"], ["meet", "v", "mit", "만나다", 1, "인사·기본표현"], ["nice", "adj", "nis", "좋은, 멋진", 1, "인사·기본표현"], ["fine", "adj", "faɪn", "괜찮은, 좋은", 1, "인사·기본표현"], ["good", "adj", "gʊd", "좋은", 1, "인사·기본표현"], ["morning", "n", "ˈmɔrnɪŋ", "아침", 1, "인사·기본표현"], ["afternoon", "n", "ˌæftərˈnun", "오후", 1, "인사·기본표현"], ["evening", "n", "ˈivnɪŋ", "저녁", 1, "인사·기본표현"], ["night", "n", "naɪt", "밤", 1, "인사·기본표현"], ["how are you", "phr", "haʊ ər ju", "어떻게 지내세요?", 1, "인사·기본표현"], ["see you", "phr", "si ju", "또 봐요", 1, "인사·기본표현"], ["take care", "phr", "teɪk kɛr", "몸 조심하세요", 1, "인사·기본표현"], ["congratulations", "int", "kənˌgræʧəˈleɪʃənz", "축하합니다", 2, "인사·기본표현"], ["help", "n", "hɛlp", "도움", 1, "인사·기본표현"], ["question", "n", "kˈwɛʃən", "질문", 1, "인사·기본표현"], ["answer", "n", "ˈænsər", "대답", 1, "인사·기본표현"], ["word", "n", "wərd", "단어, 말", 1, "인사·기본표현"], ["language", "n", "ˈlæŋgwɪʤ", "언어", 1, "인사·기본표현"], ["English", "n", "ˈɪŋlɪʃ", "영어", 1, "인사·기본표현"], ["Korean", "n", "ˌkɔˈriən", "한국어, 한국인", 1, "인사·기본표현"], ["understand", "v", "ˌəndərˈstænd", "이해하다", 1, "인사·기본표현"], ["know", "v", "noʊ", "알다", 1, "인사·기본표현"], ["speak", "v", "spik", "말하다", 1, "인사·기본표현"], ["say", "v", "seɪ", "말하다", 1, "인사·기본표현"], ["repeat", "v", "rɪˈpit", "반복하다, 다시 말하다", 2, "인사·기본표현"], ["slowly", "adv", "sˈloʊli", "천천히", 1, "인사·기본표현"], ["again", "adv", "əˈgɛn", "다시", 1, "인사·기본표현"], ["together", "adv", "təˈgɛðər", "함께", 1, "인사·기본표현"], ["everyone", "pron", "ˈɛvriˌwən", "모두", 1, "인사·기본표현"], ["somebody", "pron", "ˈsəmˌbɑdi", "누군가", 2, "인사·기본표현"], ["one", "n", "wən", "하나, 1", 1, "숫자·돈"], ["two", "n", "tu", "둘, 2", 1, "숫자·돈"], ["three", "n", "θri", "셋, 3", 1, "숫자·돈"], ["four", "n", "fɔr", "넷, 4", 1, "숫자·돈"], ["five", "n", "faɪv", "다섯, 5", 1, "숫자·돈"], ["six", "n", "sɪks", "여섯, 6", 1, "숫자·돈"], ["seven", "n", "ˈsɛvən", "일곱, 7", 1, "숫자·돈"], ["eight", "n", "eɪt", "여덟, 8", 1, "숫자·돈"], ["nine", "n", "naɪn", "아홉, 9", 1, "숫자·돈"], ["ten", "n", "tɛn", "열, 10", 1, "숫자·돈"], ["eleven", "n", "ˈilɛvən", "11", 1, "숫자·돈"], ["twelve", "n", "twɛlv", "12", 1, "숫자·돈"], ["twenty", "n", "tˈwɛnti", "20", 1, "숫자·돈"], ["thirty", "n", "ˈθərˌdi", "30", 1, "숫자·돈"], ["forty", "n", "ˈfɔrti", "40", 1, "숫자·돈"], ["fifty", "n", "ˈfɪfti", "50", 1, "숫자·돈"], ["hundred", "n", "ˈhənərd", "백, 100", 1, "숫자·돈"], ["thousand", "n", "ˈθaʊzənd", "천, 1000", 1, "숫자·돈"], ["million", "n", "ˈmɪljən", "백만", 2, "숫자·돈"], ["first", "adj", "fərst", "첫 번째", 1, "숫자·돈"], ["second", "adj", "ˈsɛkənd", "두 번째", 1, "숫자·돈"], ["third", "adj", "θərd", "세 번째", 1, "숫자·돈"], ["number", "n", "ˈnəmbər", "숫자, 번호", 1, "숫자·돈"], ["money", "n", "ˈməni", "돈", 1, "숫자·돈"], ["cash", "n", "kæʃ", "현금", 1, "숫자·돈"], ["coin", "n", "kɔɪn", "동전", 1, "숫자·돈"], ["bill", "n", "bɪl", "지폐, 계산서", 1, "숫자·돈"], ["dollar", "n", "ˈdɔlər", "달러", 1, "숫자·돈"], ["cent", "n", "sɛnt", "센트", 2, "숫자·돈"], ["won", "n", "wən", "원(한국 화폐)", 1, "숫자·돈"], ["euro", "n", "ˈjʊrə", "유로", 2, "숫자·돈"], ["price", "n", "praɪs", "가격", 1, "숫자·돈"], ["cost", "n", "kɔst", "비용", 1, "숫자·돈"], ["cheap", "adj", "ʧip", "(값이) 싼", 1, "숫자·돈"], ["expensive", "adj", "ɪkˈspɛnsɪv", "비싼", 1, "숫자·돈"], ["free", "adj", "fri", "무료의", 1, "숫자·돈"], ["change", "n", "ʧeɪnʤ", "거스름돈, 잔돈", 1, "숫자·돈"], ["total", "n", "ˈtoʊtəl", "합계, 총액", 1, "숫자·돈"], ["discount", "n", "ˈdɪskaʊnt", "할인", 2, "숫자·돈"], ["tax", "n", "tæks", "세금", 2, "숫자·돈"], ["tip", "n", "tɪp", "팁, 봉사료", 2, "숫자·돈"], ["pay", "v", "peɪ", "지불하다", 1, "숫자·돈"], ["buy", "v", "baɪ", "사다", 1, "숫자·돈"], ["sell", "v", "sɛl", "팔다", 1, "숫자·돈"], ["spend", "v", "spɛnd", "(돈을) 쓰다", 2, "숫자·돈"], ["save", "v", "seɪv", "저축하다, 아끼다", 2, "숫자·돈"], ["owe", "v", "oʊ", "빚지다", 2, "숫자·돈"], ["credit card", "n", "ˈkrɛdɪt kɑrd", "신용카드", 1, "숫자·돈"], ["account", "n", "əˈkaʊnt", "계좌", 2, "숫자·돈"], ["bank", "n", "bæŋk", "은행", 1, "숫자·돈"], ["exchange", "n", "ɪksˈʧeɪnʤ", "환전, 교환", 2, "숫자·돈"], ["receipt", "n", "rɪˈsit", "영수증", 2, "숫자·돈"], ["amount", "n", "əˈmaʊnt", "금액, 양", 2, "숫자·돈"], ["half", "n", "hæf", "절반", 1, "숫자·돈"], ["double", "adj", "ˈdəbəl", "두 배의", 2, "숫자·돈"], ["percent", "n", "pərˈsɛnt", "퍼센트", 2, "숫자·돈"], ["time", "n", "taɪm", "시간", 1, "시간·날짜"], ["hour", "n", "aʊər", "시(時), 시간", 1, "시간·날짜"], ["minute", "n", "ˈmɪnət", "분", 1, "시간·날짜"], ["second", "n", "ˈsɛkənd", "초", 1, "시간·날짜"], ["day", "n", "deɪ", "날, 하루", 1, "시간·날짜"], ["week", "n", "wik", "주, 일주일", 1, "시간·날짜"], ["month", "n", "mənθ", "달, 월", 1, "시간·날짜"], ["year", "n", "jɪr", "해, 년", 1, "시간·날짜"], ["today", "n", "təˈdeɪ", "오늘", 1, "시간·날짜"], ["tomorrow", "n", "təˈmɑˌroʊ", "내일", 1, "시간·날짜"], ["yesterday", "n", "ˈjɛstərˌdeɪ", "어제", 1, "시간·날짜"], ["now", "adv", "naʊ", "지금", 1, "시간·날짜"], ["later", "adv", "ˈleɪtər", "나중에", 1, "시간·날짜"], ["soon", "adv", "sun", "곧", 1, "시간·날짜"], ["early", "adj", "ˈərli", "이른, 일찍", 1, "시간·날짜"], ["late", "adj", "leɪt", "늦은", 1, "시간·날짜"], ["morning", "n", "ˈmɔrnɪŋ", "아침, 오전", 1, "시간·날짜"], ["noon", "n", "nun", "정오, 낮 12시", 2, "시간·날짜"], ["midnight", "n", "ˈmɪdˌnaɪt", "자정, 밤 12시", 2, "시간·날짜"], ["Monday", "n", "ˈmənˌdeɪ", "월요일", 1, "시간·날짜"], ["Tuesday", "n", "ˈtuzˌdeɪ", "화요일", 1, "시간·날짜"], ["Wednesday", "n", "ˈwɛnzˌdeɪ", "수요일", 1, "시간·날짜"], ["Thursday", "n", "ˈθərzˌdeɪ", "목요일", 1, "시간·날짜"], ["Friday", "n", "ˈfraɪˌdeɪ", "금요일", 1, "시간·날짜"], ["Saturday", "n", "ˈsæˌtɪˌdeɪ", "토요일", 1, "시간·날짜"], ["Sunday", "n", "ˈsənˌdi", "일요일", 1, "시간·날짜"], ["weekend", "n", "ˈwiˌkɪnd", "주말", 1, "시간·날짜"], ["weekday", "n", "ˈwikˌdeɪ", "평일", 2, "시간·날짜"], ["January", "n", "ˈʤænjuˌɛri", "1월", 1, "시간·날짜"], ["February", "n", "ˈfɛbruˌɛri", "2월", 1, "시간·날짜"], ["March", "n", "mɑrʧ", "3월", 1, "시간·날짜"], ["April", "n", "ˈeɪprəl", "4월", 1, "시간·날짜"], ["May", "n", "meɪ", "5월", 1, "시간·날짜"], ["June", "n", "ʤun", "6월", 1, "시간·날짜"], ["July", "n", "ˌʤuˈlaɪ", "7월", 1, "시간·날짜"], ["August", "n", "ˈɔgəst", "8월", 1, "시간·날짜"], ["September", "n", "sɛpˈtɛmbər", "9월", 1, "시간·날짜"], ["October", "n", "ɑkˈtoʊbər", "10월", 1, "시간·날짜"], ["November", "n", "noʊˈvɛmbər", "11월", 1, "시간·날짜"], ["December", "n", "dɪˈsɛmbər", "12월", 1, "시간·날짜"], ["date", "n", "deɪt", "날짜", 1, "시간·날짜"], ["calendar", "n", "ˈkæləndər", "달력", 2, "시간·날짜"], ["schedule", "n", "ˈskɛʤʊl", "일정", 2, "시간·날짜"], ["appointment", "n", "əˈpɔɪntmənt", "약속, 예약", 2, "시간·날짜"], ["holiday", "n", "ˈhɑlɪˌdeɪ", "휴일, 명절", 1, "시간·날짜"], ["season", "n", "ˈsizən", "계절", 1, "시간·날짜"], ["spring", "n", "spərɪŋ", "봄", 1, "시간·날짜"], ["summer", "n", "ˈsəmər", "여름", 1, "시간·날짜"], ["autumn", "n", "ˈɔtəm", "가을", 1, "시간·날짜"], ["winter", "n", "ˈwɪntər", "겨울", 1, "시간·날짜"], ["clock", "n", "klɑk", "시계", 1, "시간·날짜"], ["watch", "n", "wɔʧ", "손목시계", 1, "시간·날짜"], ["o'clock", "adv", "əˈklɑk", "~시 정각", 1, "시간·날짜"], ["half past", "phr", "hæf pæst", "~시 반", 2, "시간·날짜"], ["quarter", "n", "kˈwɔrtər", "15분, 4분의 1", 2, "시간·날짜"], ["daily", "adj", "ˈdeɪli", "매일의", 2, "시간·날짜"], ["always", "adv", "ˈɔlˌweɪz", "항상", 1, "시간·날짜"], ["never", "adv", "ˈnɛvər", "절대 ~않다", 1, "시간·날짜"], ["sometimes", "adv", "ˈsəmˌtaɪmz", "가끔", 1, "시간·날짜"], ["often", "adv", "ˈɔfən", "자주", 1, "시간·날짜"], ["food", "n", "fud", "음식", 1, "음식·식당"], ["water", "n", "ˈwɔtər", "물", 1, "음식·식당"], ["coffee", "n", "ˈkɔfi", "커피", 1, "음식·식당"], ["tea", "n", "ti", "차", 1, "음식·식당"], ["juice", "n", "ʤus", "주스", 1, "음식·식당"], ["milk", "n", "mɪlk", "우유", 1, "음식·식당"], ["beer", "n", "bɪr", "맥주", 1, "음식·식당"], ["wine", "n", "waɪn", "와인", 1, "음식·식당"], ["soda", "n", "ˈsoʊdə", "탄산음료", 2, "음식·식당"], ["drink", "n", "drɪŋk", "음료", 1, "음식·식당"], ["bread", "n", "brɛd", "빵", 1, "음식·식당"], ["rice", "n", "raɪs", "밥, 쌀", 1, "음식·식당"], ["noodle", "n", "ˈnudəl", "국수, 면", 1, "음식·식당"], ["soup", "n", "sup", "수프, 국", 1, "음식·식당"], ["meat", "n", "mit", "고기", 1, "음식·식당"], ["beef", "n", "bif", "소고기", 1, "음식·식당"], ["pork", "n", "pɔrk", "돼지고기", 1, "음식·식당"], ["chicken", "n", "ˈʧɪkən", "닭고기", 1, "음식·식당"], ["fish", "n", "fɪʃ", "생선", 1, "음식·식당"], ["egg", "n", "ɛg", "달걀", 1, "음식·식당"], ["cheese", "n", "ʧiz", "치즈", 1, "음식·식당"], ["butter", "n", "ˈbətər", "버터", 2, "음식·식당"], ["salad", "n", "ˈsæləd", "샐러드", 1, "음식·식당"], ["fruit", "n", "frut", "과일", 1, "음식·식당"], ["apple", "n", "ˈæpəl", "사과", 1, "음식·식당"], ["banana", "n", "bəˈnænə", "바나나", 1, "음식·식당"], ["orange", "n", "ˈɔrɪnʤ", "오렌지", 1, "음식·식당"], ["grape", "n", "greɪp", "포도", 1, "음식·식당"], ["strawberry", "n", "ˈstrɔˌbɛri", "딸기", 2, "음식·식당"], ["lemon", "n", "ˈlɛmən", "레몬", 2, "음식·식당"], ["vegetable", "n", "ˈvɛʤtəbəl", "채소", 1, "음식·식당"], ["potato", "n", "pəˈteɪˌtoʊ", "감자", 1, "음식·식당"], ["tomato", "n", "təˈmɑˌtoʊ", "토마토", 1, "음식·식당"], ["onion", "n", "ˈənjən", "양파", 1, "음식·식당"], ["carrot", "n", "ˈkɛrət", "당근", 2, "음식·식당"], ["salt", "n", "sɔlt", "소금", 1, "음식·식당"], ["sugar", "n", "ˈʃʊgər", "설탕", 1, "음식·식당"], ["pepper", "n", "ˈpɛpər", "후추", 2, "음식·식당"], ["sauce", "n", "sɔs", "소스", 2, "음식·식당"], ["oil", "n", "ɔɪl", "기름", 2, "음식·식당"], ["breakfast", "n", "ˈbrɛkfəst", "아침 식사", 1, "음식·식당"], ["lunch", "n", "lənʧ", "점심 식사", 1, "음식·식당"], ["dinner", "n", "ˈdɪnər", "저녁 식사", 1, "음식·식당"], ["meal", "n", "mil", "식사", 1, "음식·식당"], ["snack", "n", "snæk", "간식", 2, "음식·식당"], ["dessert", "n", "dɪˈzərt", "디저트, 후식", 2, "음식·식당"], ["menu", "n", "ˈmɛnju", "메뉴", 1, "음식·식당"], ["order", "n", "ˈɔrdər", "주문", 1, "음식·식당"], ["dish", "n", "dɪʃ", "요리, 접시", 1, "음식·식당"], ["plate", "n", "pleɪt", "접시", 1, "음식·식당"], ["bowl", "n", "boʊl", "그릇", 1, "음식·식당"], ["cup", "n", "kəp", "컵", 1, "음식·식당"], ["glass", "n", "glæs", "유리컵", 1, "음식·식당"], ["fork", "n", "fɔrk", "포크", 1, "음식·식당"], ["knife", "n", "naɪf", "칼", 1, "음식·식당"], ["spoon", "n", "spun", "숟가락", 1, "음식·식당"], ["chopsticks", "n", "ˈʧɑpˌstɪks", "젓가락", 2, "음식·식당"], ["napkin", "n", "ˈnæpkɪn", "냅킨", 2, "음식·식당"], ["table", "n", "ˈteɪbəl", "테이블, 식탁", 1, "음식·식당"], ["waiter", "n", "ˈweɪtər", "웨이터, 종업원", 2, "음식·식당"], ["chef", "n", "ʃɛf", "요리사, 주방장", 2, "음식·식당"], ["kitchen", "n", "ˈkɪʧən", "주방", 1, "음식·식당"], ["restaurant", "n", "ˈrɛˌstrɑnt", "식당", 1, "음식·식당"], ["cafe", "n", "kəˈfeɪ", "카페", 1, "음식·식당"], ["bar", "n", "bɑr", "술집, 바", 1, "음식·식당"], ["delicious", "adj", "dɪˈlɪʃəs", "맛있는", 1, "음식·식당"], ["tasty", "adj", "ˈteɪsti", "맛있는", 2, "음식·식당"], ["sweet", "adj", "swit", "단, 달콤한", 1, "음식·식당"], ["salty", "adj", "ˈsɔlti", "짠", 2, "음식·식당"], ["spicy", "adj", "ˈspaɪsi", "매운", 1, "음식·식당"], ["sour", "adj", "saʊər", "신, 시큼한", 2, "음식·식당"], ["bitter", "adj", "ˈbɪtər", "쓴", 2, "음식·식당"], ["fresh", "adj", "frɛʃ", "신선한", 1, "음식·식당"], ["hot", "adj", "hɑt", "뜨거운, 매운", 1, "음식·식당"], ["cold", "adj", "koʊld", "차가운", 1, "음식·식당"], ["hungry", "adj", "ˈhəŋgri", "배고픈", 1, "음식·식당"], ["thirsty", "adj", "ˈθərsti", "목마른", 1, "음식·식당"], ["full", "adj", "fʊl", "배부른", 1, "음식·식당"], ["eat", "v", "it", "먹다", 1, "음식·식당"], ["cook", "v", "kʊk", "요리하다", 1, "음식·식당"], ["taste", "v", "teɪst", "맛보다", 2, "음식·식당"], ["recommend", "v", "ˌrɛkəˈmɛnd", "추천하다", 2, "음식·식당"], ["reserve", "v", "rɪˈzərv", "예약하다", 2, "음식·식당"], ["vegetarian", "n", "ˌvɛʤəˈtɛˌriən", "채식주의자", 2, "음식·식당"], ["allergy", "n", "ˈælərʤi", "알레르기", 2, "음식·식당"], ["bottle", "n", "ˈbɑtəl", "병", 1, "음식·식당"], ["ice", "n", "aɪs", "얼음", 1, "음식·식당"], ["straw", "n", "strɔ", "빨대", 2, "음식·식당"], ["takeout", "n", "ˈteɪˌkaʊt", "포장, 테이크아웃", 2, "음식·식당"], ["refill", "n", "ˈrifɪl", "리필", 2, "음식·식당"], ["car", "n", "kɑr", "자동차", 1, "교통·이동"], ["taxi", "n", "ˈtæksi", "택시", 1, "교통·이동"], ["bus", "n", "bəs", "버스", 1, "교통·이동"], ["train", "n", "treɪn", "기차", 1, "교통·이동"], ["subway", "n", "ˈsəbˌweɪ", "지하철", 1, "교통·이동"], ["airplane", "n", "ˈɛrˌpleɪn", "비행기", 1, "교통·이동"], ["plane", "n", "pleɪn", "비행기", 1, "교통·이동"], ["bicycle", "n", "ˈbaɪsɪkəl", "자전거", 1, "교통·이동"], ["bike", "n", "baɪk", "자전거, 오토바이", 1, "교통·이동"], ["boat", "n", "boʊt", "배", 1, "교통·이동"], ["ship", "n", "ʃɪp", "(큰) 배, 선박", 2, "교통·이동"], ["ferry", "n", "ˈfɛri", "여객선, 페리", 2, "교통·이동"], ["motorcycle", "n", "ˈmoʊtərˌsaɪkəl", "오토바이", 2, "교통·이동"], ["road", "n", "roʊd", "길, 도로", 1, "교통·이동"], ["street", "n", "strit", "거리", 1, "교통·이동"], ["highway", "n", "ˈhaɪˌweɪ", "고속도로", 2, "교통·이동"], ["station", "n", "ˈsteɪʃən", "역, 정거장", 1, "교통·이동"], ["stop", "n", "stɑp", "정류장", 1, "교통·이동"], ["platform", "n", "ˈplætˌfɔrm", "승강장, 플랫폼", 2, "교통·이동"], ["ticket", "n", "ˈtɪkɪt", "표, 승차권", 1, "교통·이동"], ["seat", "n", "sit", "좌석", 1, "교통·이동"], ["driver", "n", "ˈdraɪvər", "운전사", 1, "교통·이동"], ["passenger", "n", "ˈpæsənʤər", "승객", 2, "교통·이동"], ["traffic", "n", "ˈtræfɪk", "교통, 교통량", 2, "교통·이동"], ["map", "n", "mæp", "지도", 1, "교통·이동"], ["distance", "n", "ˈdɪstəns", "거리(길이)", 2, "교통·이동"], ["direction", "n", "dɪˈrɛkʃɪn", "방향", 2, "교통·이동"], ["speed", "n", "spid", "속도", 2, "교통·이동"], ["fare", "n", "fɛr", "요금", 2, "교통·이동"], ["gas", "n", "gæs", "기름, 휘발유", 2, "교통·이동"], ["parking", "n", "ˈpɑrkɪŋ", "주차", 2, "교통·이동"], ["license", "n", "ˈlaɪsəns", "면허증", 2, "교통·이동"], ["wheel", "n", "wil", "바퀴, 핸들", 2, "교통·이동"], ["engine", "n", "ˈɪnʤən", "엔진", 2, "교통·이동"], ["drive", "v", "draɪv", "운전하다", 1, "교통·이동"], ["ride", "v", "raɪd", "타다", 1, "교통·이동"], ["walk", "v", "wɔk", "걷다", 1, "교통·이동"], ["run", "v", "rən", "달리다", 1, "교통·이동"], ["arrive", "v", "əraɪv", "도착하다", 1, "교통·이동"], ["leave", "v", "liv", "떠나다, 출발하다", 1, "교통·이동"], ["depart", "v", "dɪˈpɑrt", "출발하다", 2, "교통·이동"], ["transfer", "v", "ˈtrænsfər", "환승하다, 갈아타다", 2, "교통·이동"], ["board", "v", "bɔrd", "탑승하다", 2, "교통·이동"], ["miss", "v", "mɪs", "놓치다", 1, "교통·이동"], ["wait", "v", "weɪt", "기다리다", 1, "교통·이동"], ["hurry", "v", "ˈhəri", "서두르다", 2, "교통·이동"], ["delay", "n", "dɪˈleɪ", "지연, 연착", 2, "교통·이동"], ["route", "n", "rut", "경로, 노선", 2, "교통·이동"], ["one-way", "adj", "ˈwənˈweɪ", "편도의", 2, "교통·이동"], ["round-trip", "adj", "ˈraʊnd trɪp", "왕복의", 2, "교통·이동"], ["hotel", "n", "hoʊˈtɛl", "호텔", 1, "숙박"], ["motel", "n", "moʊˈtɛl", "모텔", 2, "숙박"], ["hostel", "n", "ˈhɑstəl", "호스텔", 2, "숙박"], ["guesthouse", "n", "ˈgɛˌsthaʊs", "게스트하우스", 2, "숙박"], ["room", "n", "rum", "방", 1, "숙박"], ["bed", "n", "bɛd", "침대", 1, "숙박"], ["key", "n", "ki", "열쇠, 키", 1, "숙박"], ["door", "n", "dɔr", "문", 1, "숙박"], ["window", "n", "ˈwɪndoʊ", "창문", 1, "숙박"], ["bathroom", "n", "ˈbæθˌrum", "욕실, 화장실", 1, "숙박"], ["shower", "n", "ʃaʊər", "샤워", 1, "숙박"], ["towel", "n", "taʊəl", "수건", 1, "숙박"], ["soap", "n", "soʊp", "비누", 2, "숙박"], ["shampoo", "n", "ʃæmˈpu", "샴푸", 2, "숙박"], ["pillow", "n", "ˈpɪloʊ", "베개", 2, "숙박"], ["blanket", "n", "ˈblæŋkɪt", "담요", 2, "숙박"], ["sheet", "n", "ʃit", "시트, 침대보", 2, "숙박"], ["floor", "n", "flɔr", "층, 바닥", 1, "숙박"], ["elevator", "n", "ˈɛləˌveɪtər", "엘리베이터", 1, "숙박"], ["stairs", "n", "stɛrz", "계단", 2, "숙박"], ["lobby", "n", "ˈlɑbi", "로비", 2, "숙박"], ["reception", "n", "rɪˈsɛpʃən", "프런트, 접수처", 2, "숙박"], ["checkin", "n", "ˈʧɛkˌɪn", "체크인", 1, "숙박"], ["checkout", "n", "ˈʧɛˌkaʊt", "체크아웃", 1, "숙박"], ["reservation", "n", "ˌrɛzərˈveɪʃən", "예약", 1, "숙박"], ["guest", "n", "gɛst", "손님, 투숙객", 1, "숙박"], ["staff", "n", "stæf", "직원", 2, "숙박"], ["service", "n", "ˈsərvɪs", "서비스", 1, "숙박"], ["wifi", "n", "ˈwiˌfi", "와이파이", 1, "숙박"], ["password", "n", "ˈpæsˌwərd", "비밀번호", 2, "숙박"], ["breakfast", "n", "ˈbrɛkfəst", "조식", 1, "숙박"], ["laundry", "n", "ˈlɔndri", "세탁", 2, "숙박"], ["luggage", "n", "ˈləgɪʤ", "짐, 수하물", 2, "숙박"], ["suitcase", "n", "ˈsutˌkeɪs", "여행 가방", 2, "숙박"], ["booking", "n", "ˈbʊkɪŋ", "예약", 2, "숙박"], ["available", "adj", "əˈveɪləbəl", "이용 가능한, 빈", 2, "숙박"], ["clean", "adj", "klin", "깨끗한", 1, "숙박"], ["dirty", "adj", "ˈdərti", "더러운", 1, "숙박"], ["quiet", "adj", "kwaɪət", "조용한", 1, "숙박"], ["comfortable", "adj", "ˈkəmfərtəbəl", "편안한", 2, "숙박"], ["stay", "v", "steɪ", "머무르다", 1, "숙박"], ["sleep", "v", "slip", "자다", 1, "숙박"], ["rest", "v", "rɛst", "쉬다", 1, "숙박"], ["book", "v", "bʊk", "예약하다", 2, "숙박"], ["cancel", "v", "ˈkænsəl", "취소하다", 2, "숙박"], ["shop", "n", "ʃɑp", "가게", 1, "쇼핑"], ["store", "n", "stɔr", "상점", 1, "쇼핑"], ["market", "n", "ˈmɑrkɪt", "시장", 1, "쇼핑"], ["mall", "n", "mɔl", "쇼핑몰", 1, "쇼핑"], ["supermarket", "n", "ˈsupərˌmɑrkɪt", "슈퍼마켓", 1, "쇼핑"], ["clothes", "n", "kloʊðz", "옷", 1, "쇼핑"], ["shirt", "n", "ʃərt", "셔츠", 1, "쇼핑"], ["pants", "n", "pænts", "바지", 1, "쇼핑"], ["dress", "n", "drɛs", "원피스, 드레스", 1, "쇼핑"], ["skirt", "n", "skərt", "치마", 2, "쇼핑"], ["jacket", "n", "ˈʤækɪt", "재킷", 1, "쇼핑"], ["coat", "n", "koʊt", "코트", 1, "쇼핑"], ["shoes", "n", "ʃuz", "신발", 1, "쇼핑"], ["socks", "n", "sɑks", "양말", 2, "쇼핑"], ["hat", "n", "hæt", "모자", 1, "쇼핑"], ["bag", "n", "bæg", "가방", 1, "쇼핑"], ["wallet", "n", "ˈwɔlət", "지갑", 2, "쇼핑"], ["glasses", "n", "ˈglæsɪz", "안경", 1, "쇼핑"], ["ring", "n", "rɪŋ", "반지", 2, "쇼핑"], ["gift", "n", "gɪft", "선물", 1, "쇼핑"], ["souvenir", "n", "ˌsuvəˈnɪr", "기념품", 2, "쇼핑"], ["size", "n", "saɪz", "크기, 사이즈", 1, "쇼핑"], ["color", "n", "ˈkələr", "색깔", 1, "쇼핑"], ["brand", "n", "brænd", "상표, 브랜드", 2, "쇼핑"], ["quality", "n", "kˈwɑləti", "품질", 2, "쇼핑"], ["customer", "n", "ˈkəstəmər", "고객", 2, "쇼핑"], ["cashier", "n", "kæˈʃɪr", "계산원", 2, "쇼핑"], ["counter", "n", "ˈkaʊntər", "계산대", 2, "쇼핑"], ["sale", "n", "seɪl", "세일, 할인 판매", 1, "쇼핑"], ["refund", "n", "ˈriˌfənd", "환불", 2, "쇼핑"], ["fitting room", "n", "ˈfɪtɪŋ rum", "탈의실", 2, "쇼핑"], ["try on", "v", "traɪ ɔn", "입어 보다", 2, "쇼핑"], ["wear", "v", "wɛr", "입다, 착용하다", 1, "쇼핑"], ["choose", "v", "ʧuz", "고르다", 1, "쇼핑"], ["compare", "v", "kəmˈpɛr", "비교하다", 2, "쇼핑"], ["big", "adj", "bɪg", "큰", 1, "쇼핑"], ["small", "adj", "smɔl", "작은", 1, "쇼핑"], ["large", "adj", "lɑrʤ", "큰, 넓은", 1, "쇼핑"], ["long", "adj", "lɔŋ", "긴", 1, "쇼핑"], ["short", "adj", "ʃɔrt", "짧은", 1, "쇼핑"], ["new", "adj", "nu", "새로운", 1, "쇼핑"], ["old", "adj", "oʊld", "낡은, 오래된", 1, "쇼핑"], ["heavy", "adj", "ˈhɛvi", "무거운", 1, "쇼핑"], ["light", "adj", "laɪt", "가벼운", 1, "쇼핑"], ["airport", "n", "ˈɛrˌpɔrt", "공항", 1, "공항·입국"], ["airline", "n", "ˈɛˌrlaɪn", "항공사", 2, "공항·입국"], ["flight", "n", "flaɪt", "항공편, 비행", 1, "공항·입국"], ["gate", "n", "geɪt", "탑승구, 게이트", 1, "공항·입국"], ["terminal", "n", "ˈtərmənəl", "터미널", 2, "공항·입국"], ["boarding pass", "n", "ˈbɔrdɪŋ pæs", "탑승권", 2, "공항·입국"], ["passport", "n", "ˈpæˌspɔrt", "여권", 1, "공항·입국"], ["visa", "n", "ˈvizə", "비자", 1, "공항·입국"], ["customs", "n", "ˈkəstəmz", "세관", 2, "공항·입국"], ["immigration", "n", "ˌɪməˈgreɪʃən", "출입국 심사", 2, "공항·입국"], ["baggage", "n", "ˈbægɪʤ", "수하물", 2, "공항·입국"], ["carry-on", "n", "ˈkæri ɑn", "기내 반입 수하물", 2, "공항·입국"], ["check-in counter", "n", "ˈʧɛkˌɪn ˈkaʊntər", "체크인 카운터", 2, "공항·입국"], ["departure", "n", "dɪˈpɑrʧər", "출발", 2, "공항·입국"], ["arrival", "n", "ərˈaɪvəl", "도착", 2, "공항·입국"], ["domestic", "adj", "dəˈmɛstɪk", "국내의", 2, "공항·입국"], ["international", "adj", "ˌɪnərˈnæʃənɑl", "국제의", 2, "공항·입국"], ["security", "n", "sɪˈkjʊrəti", "보안 검색", 2, "공항·입국"], ["scale", "n", "skeɪl", "저울", 2, "공항·입국"], ["weight", "n", "weɪt", "무게", 2, "공항·입국"], ["declare", "v", "dɪˈklɛr", "(세관에) 신고하다", 2, "공항·입국"], ["land", "v", "lænd", "착륙하다", 2, "공항·입국"], ["takeoff", "n", "ˈteɪˌkɔf", "이륙", 2, "공항·입국"], ["connecting", "adj", "kəˈnɛktɪŋ", "연결되는(환승)", 2, "공항·입국"], ["layover", "n", "ˈleɪˌoʊvər", "경유, 스톱오버", 2, "공항·입국"], ["crew", "n", "kru", "승무원", 2, "공항·입국"], ["pilot", "n", "ˈpaɪlət", "조종사", 2, "공항·입국"], ["aisle", "n", "aɪəl", "통로", 2, "공항·입국"], ["economy", "n", "ɪˈkɑnəmi", "이코노미석", 2, "공항·입국"], ["business class", "n", "ˈbɪznɪs klæs", "비즈니스석", 2, "공항·입국"], ["duty-free", "adj", "ˈduti fri", "면세의", 2, "공항·입국"], ["nationality", "n", "ˌnæʃəˈnælɪti", "국적", 2, "공항·입국"], ["purpose", "n", "ˈpərpəs", "목적", 2, "공항·입국"], ["stamp", "n", "stæmp", "도장, 스탬프", 2, "공항·입국"], ["form", "n", "fɔrm", "양식, 서류", 1, "공항·입국"], ["signature", "n", "ˈsɪgnəʧər", "서명", 2, "공항·입국"], ["overweight", "adj", "ˌoʊvərˈweɪt", "(무게가) 초과된", 2, "공항·입국"], ["liquid", "n", "ˈlɪkwɪd", "액체", 2, "공항·입국"], ["here", "adv", "hir", "여기", 1, "길찾기·장소"], ["there", "adv", "ðɛr", "저기, 거기", 1, "길찾기·장소"], ["left", "n", "lɛft", "왼쪽", 1, "길찾기·장소"], ["right", "n", "raɪt", "오른쪽", 1, "길찾기·장소"], ["straight", "adv", "streɪt", "똑바로, 직진으로", 1, "길찾기·장소"], ["near", "adj", "nɪr", "가까운", 1, "길찾기·장소"], ["far", "adj", "fɑr", "먼", 1, "길찾기·장소"], ["next to", "prep", "nɛkst tɪ", "~옆에", 1, "길찾기·장소"], ["between", "prep", "bɪtˈwin", "~사이에", 1, "길찾기·장소"], ["behind", "prep", "bɪˈhaɪnd", "~뒤에", 1, "길찾기·장소"], ["front", "n", "frənt", "앞", 1, "길찾기·장소"], ["back", "n", "bæk", "뒤", 1, "길찾기·장소"], ["corner", "n", "ˈkɔrnər", "모퉁이, 구석", 1, "길찾기·장소"], ["block", "n", "blɑk", "블록, 구역", 2, "길찾기·장소"], ["address", "n", "ˈæˌdrɛs", "주소", 1, "길찾기·장소"], ["place", "n", "pleɪs", "장소", 1, "길찾기·장소"], ["building", "n", "ˈbɪldɪŋ", "건물", 1, "길찾기·장소"], ["hospital", "n", "ˈhɑˌspɪtəl", "병원", 1, "길찾기·장소"], ["pharmacy", "n", "ˈfɑrməsi", "약국", 2, "길찾기·장소"], ["police station", "n", "pəˈlis ˈsteɪʃən", "경찰서", 2, "길찾기·장소"], ["post office", "n", "poʊst ˈɔfəs", "우체국", 2, "길찾기·장소"], ["school", "n", "skul", "학교", 1, "길찾기·장소"], ["church", "n", "ʧərʧ", "교회", 1, "길찾기·장소"], ["museum", "n", "mˈjuziəm", "박물관", 1, "길찾기·장소"], ["park", "n", "pɑrk", "공원", 1, "길찾기·장소"], ["beach", "n", "biʧ", "해변", 1, "길찾기·장소"], ["mountain", "n", "ˈmaʊntən", "산", 1, "길찾기·장소"], ["river", "n", "ˈrɪvər", "강", 1, "길찾기·장소"], ["bridge", "n", "brɪʤ", "다리", 1, "길찾기·장소"], ["square", "n", "skwɛr", "광장", 2, "길찾기·장소"], ["downtown", "n", "ˈdaʊnˈtaʊn", "시내, 도심", 2, "길찾기·장소"], ["center", "n", "ˈsɛnər", "중심, 센터", 1, "길찾기·장소"], ["entrance", "n", "ˈɛntrəns", "입구", 2, "길찾기·장소"], ["exit", "n", "ˈɛksət", "출구", 1, "길찾기·장소"], ["sign", "n", "saɪn", "표지판, 간판", 1, "길찾기·장소"], ["corner store", "n", "ˈkɔrnər stɔr", "편의점", 2, "길찾기·장소"], ["toilet", "n", "ˈtɔɪlət", "화장실", 1, "길찾기·장소"], ["restroom", "n", "ˈrɛˌstrum", "화장실", 2, "길찾기·장소"], ["turn", "v", "tərn", "돌다, 회전하다", 1, "길찾기·장소"], ["cross", "v", "krɔs", "건너다", 1, "길찾기·장소"], ["follow", "v", "ˈfɑloʊ", "따라가다", 1, "길찾기·장소"], ["find", "v", "faɪnd", "찾다", 1, "길찾기·장소"], ["lost", "adj", "lɔst", "길을 잃은", 1, "길찾기·장소"], ["close", "adj", "kloʊz", "가까운", 1, "길찾기·장소"], ["open", "adj", "ˈoʊpən", "열린, 영업 중인", 1, "길찾기·장소"], ["closed", "adj", "kloʊzd", "닫힌, 영업 종료", 1, "길찾기·장소"], ["around", "prep", "əraʊnd", "주변에", 1, "길찾기·장소"], ["across", "prep", "əˈkrɔs", "건너편에", 2, "길찾기·장소"], ["body", "n", "ˈbɑdi", "몸", 1, "몸·건강·긴급"], ["head", "n", "hɛd", "머리", 1, "몸·건강·긴급"], ["face", "n", "feɪs", "얼굴", 1, "몸·건강·긴급"], ["eye", "n", "aɪ", "눈", 1, "몸·건강·긴급"], ["ear", "n", "ɪr", "귀", 1, "몸·건강·긴급"], ["nose", "n", "noʊz", "코", 1, "몸·건강·긴급"], ["mouth", "n", "maʊθ", "입", 1, "몸·건강·긴급"], ["tooth", "n", "tuθ", "이, 치아", 1, "몸·건강·긴급"], ["neck", "n", "nɛk", "목", 1, "몸·건강·긴급"], ["shoulder", "n", "ˈʃoʊldər", "어깨", 2, "몸·건강·긴급"], ["arm", "n", "ɑrm", "팔", 1, "몸·건강·긴급"], ["hand", "n", "hænd", "손", 1, "몸·건강·긴급"], ["finger", "n", "ˈfɪŋgər", "손가락", 1, "몸·건강·긴급"], ["leg", "n", "lɛg", "다리", 1, "몸·건강·긴급"], ["foot", "n", "fʊt", "발", 1, "몸·건강·긴급"], ["knee", "n", "ni", "무릎", 2, "몸·건강·긴급"], ["back", "n", "bæk", "등, 허리", 1, "몸·건강·긴급"], ["stomach", "n", "ˈstəmək", "배, 위", 1, "몸·건강·긴급"], ["heart", "n", "hɑrt", "심장, 마음", 1, "몸·건강·긴급"], ["skin", "n", "skɪn", "피부", 2, "몸·건강·긴급"], ["hair", "n", "hɛr", "머리카락", 1, "몸·건강·긴급"], ["blood", "n", "bləd", "피", 2, "몸·건강·긴급"], ["health", "n", "hɛlθ", "건강", 1, "몸·건강·긴급"], ["doctor", "n", "ˈdɔktər", "의사", 1, "몸·건강·긴급"], ["nurse", "n", "nərs", "간호사", 2, "몸·건강·긴급"], ["patient", "n", "ˈpeɪʃənt", "환자", 2, "몸·건강·긴급"], ["medicine", "n", "ˈmɛdəsən", "약", 1, "몸·건강·긴급"], ["pill", "n", "pɪl", "알약", 2, "몸·건강·긴급"], ["fever", "n", "ˈfivər", "열", 2, "몸·건강·긴급"], ["cold", "n", "koʊld", "감기", 1, "몸·건강·긴급"], ["cough", "n", "kɔf", "기침", 2, "몸·건강·긴급"], ["pain", "n", "peɪn", "통증", 2, "몸·건강·긴급"], ["headache", "n", "ˈhɛˌdeɪk", "두통", 2, "몸·건강·긴급"], ["stomachache", "n", "ˈstʌmək eɪk", "복통", 2, "몸·건강·긴급"], ["injury", "n", "ˈɪnʤəri", "부상", 2, "몸·건강·긴급"], ["wound", "n", "wund", "상처", 2, "몸·건강·긴급"], ["ambulance", "n", "ˈæmbjələns", "구급차", 2, "몸·건강·긴급"], ["emergency", "n", "ˈimərʤənsi", "비상, 응급", 1, "몸·건강·긴급"], ["accident", "n", "ˈæksədənt", "사고", 1, "몸·건강·긴급"], ["fire", "n", "faɪər", "불, 화재", 1, "몸·건강·긴급"], ["danger", "n", "ˈdeɪnʤər", "위험", 2, "몸·건강·긴급"], ["safe", "adj", "seɪf", "안전한", 1, "몸·건강·긴급"], ["sick", "adj", "sɪk", "아픈", 1, "몸·건강·긴급"], ["hurt", "v", "hərt", "다치다, 아프다", 1, "몸·건강·긴급"], ["breathe", "v", "brið", "숨쉬다", 2, "몸·건강·긴급"], ["faint", "v", "feɪnt", "기절하다", 2, "몸·건강·긴급"], ["tired", "adj", "taɪərd", "피곤한", 1, "몸·건강·긴급"], ["dizzy", "adj", "ˈdɪzi", "어지러운", 2, "몸·건강·긴급"], ["sore", "adj", "sɔr", "아픈, 쓰라린", 2, "몸·건강·긴급"], ["help me", "phr", "hɛlp mi", "도와주세요", 1, "몸·건강·긴급"], ["call the police", "phr", "kɔl ðə pəˈlis", "경찰을 불러 주세요", 2, "몸·건강·긴급"], ["happy", "adj", "ˈhæpi", "행복한", 1, "감정·상태"], ["sad", "adj", "sæd", "슬픈", 1, "감정·상태"], ["angry", "adj", "ˈæŋgri", "화난", 1, "감정·상태"], ["afraid", "adj", "əˈfreɪd", "두려운", 1, "감정·상태"], ["scared", "adj", "skɛrd", "무서워하는", 1, "감정·상태"], ["nervous", "adj", "ˈnərvəs", "긴장한", 2, "감정·상태"], ["worried", "adj", "ˈwərid", "걱정하는", 1, "감정·상태"], ["excited", "adj", "ɪkˈsaɪtɪd", "신난, 흥분한", 1, "감정·상태"], ["bored", "adj", "bɔrd", "지루한", 2, "감정·상태"], ["surprised", "adj", "səˈpraɪzd", "놀란", 1, "감정·상태"], ["glad", "adj", "glæd", "기쁜", 1, "감정·상태"], ["lonely", "adj", "ˈloʊnli", "외로운", 2, "감정·상태"], ["uncomfortable", "adj", "ənˈkəmfərtəbəl", "불편한", 2, "감정·상태"], ["calm", "adj", "kɑm", "차분한", 2, "감정·상태"], ["upset", "adj", "ˈəpˌsɛt", "속상한", 2, "감정·상태"], ["proud", "adj", "praʊd", "자랑스러운", 2, "감정·상태"], ["shy", "adj", "ʃaɪ", "수줍은", 2, "감정·상태"], ["confused", "adj", "kənfˈjuzd", "혼란스러운", 2, "감정·상태"], ["relaxed", "adj", "rɪˈlækst", "느긋한, 편안한", 2, "감정·상태"], ["disappointed", "adj", "ˌdɪsəˈpɔɪnɪd", "실망한", 2, "감정·상태"], ["grateful", "adj", "ˈgreɪtfəl", "고마워하는", 2, "감정·상태"], ["love", "n", "ləv", "사랑", 1, "감정·상태"], ["hope", "n", "hoʊp", "희망", 1, "감정·상태"], ["fear", "n", "fɪr", "두려움", 2, "감정·상태"], ["joy", "n", "ʤɔɪ", "기쁨", 2, "감정·상태"], ["feeling", "n", "ˈfilɪŋ", "감정, 느낌", 1, "감정·상태"], ["mood", "n", "mud", "기분", 2, "감정·상태"], ["smile", "n", "smaɪl", "미소", 1, "감정·상태"], ["laugh", "v", "læf", "웃다", 1, "감정·상태"], ["cry", "v", "kraɪ", "울다", 1, "감정·상태"], ["feel", "v", "fil", "느끼다", 1, "감정·상태"], ["enjoy", "v", "ˌɛnˈʤɔɪ", "즐기다", 1, "감정·상태"], ["worry", "v", "ˈwəri", "걱정하다", 1, "감정·상태"], ["miss", "v", "mɪs", "그리워하다", 1, "감정·상태"], ["hate", "v", "heɪt", "싫어하다", 1, "감정·상태"], ["prefer", "v", "prɪˈfər", "더 좋아하다", 2, "감정·상태"], ["believe", "v", "bɪˈliv", "믿다", 2, "감정·상태"], ["mind", "n", "maɪnd", "마음, 정신", 2, "감정·상태"], ["be", "v", "bi", "~이다, 있다", 1, "자주 쓰는 동사"], ["have", "v", "hæv", "가지다, 있다", 1, "자주 쓰는 동사"], ["do", "v", "du", "하다", 1, "자주 쓰는 동사"], ["go", "v", "goʊ", "가다", 1, "자주 쓰는 동사"], ["come", "v", "kəm", "오다", 1, "자주 쓰는 동사"], ["get", "v", "gɪt", "얻다, 받다", 1, "자주 쓰는 동사"], ["make", "v", "meɪk", "만들다", 1, "자주 쓰는 동사"], ["take", "v", "teɪk", "가지다, 잡다", 1, "자주 쓰는 동사"], ["give", "v", "gɪv", "주다", 1, "자주 쓰는 동사"], ["want", "v", "wɔnt", "원하다", 1, "자주 쓰는 동사"], ["need", "v", "nid", "필요하다", 1, "자주 쓰는 동사"], ["like", "v", "laɪk", "좋아하다", 1, "자주 쓰는 동사"], ["use", "v", "juz", "사용하다", 1, "자주 쓰는 동사"], ["work", "v", "wərk", "일하다", 1, "자주 쓰는 동사"], ["call", "v", "kɔl", "부르다, 전화하다", 1, "자주 쓰는 동사"], ["try", "v", "traɪ", "시도하다", 1, "자주 쓰는 동사"], ["ask", "v", "æsk", "묻다, 요청하다", 1, "자주 쓰는 동사"], ["seem", "v", "sim", "~인 것 같다", 2, "자주 쓰는 동사"], ["become", "v", "bɪˈkəm", "~이 되다", 2, "자주 쓰는 동사"], ["show", "v", "ʃoʊ", "보여주다", 1, "자주 쓰는 동사"], ["start", "v", "stɑrt", "시작하다", 1, "자주 쓰는 동사"], ["begin", "v", "bɪˈgɪn", "시작하다", 2, "자주 쓰는 동사"], ["end", "v", "ɛnd", "끝내다", 1, "자주 쓰는 동사"], ["finish", "v", "ˈfɪnɪʃ", "끝내다", 1, "자주 쓰는 동사"], ["stop", "v", "stɑp", "멈추다", 1, "자주 쓰는 동사"], ["keep", "v", "kip", "유지하다, 계속하다", 1, "자주 쓰는 동사"], ["let", "v", "lɛt", "~하게 하다", 1, "자주 쓰는 동사"], ["put", "v", "pʊt", "놓다, 두다", 1, "자주 쓰는 동사"], ["bring", "v", "brɪŋ", "가져오다", 1, "자주 쓰는 동사"], ["carry", "v", "ˈkɛri", "나르다, 들고 가다", 1, "자주 쓰는 동사"], ["send", "v", "sɛnd", "보내다", 1, "자주 쓰는 동사"], ["open", "v", "ˈoʊpən", "열다", 1, "자주 쓰는 동사"], ["close", "v", "kloʊz", "닫다", 1, "자주 쓰는 동사"], ["turn", "v", "tərn", "돌리다, 켜다/끄다", 1, "자주 쓰는 동사"], ["move", "v", "muv", "움직이다, 이사하다", 1, "자주 쓰는 동사"], ["change", "v", "ʧeɪnʤ", "바꾸다", 1, "자주 쓰는 동사"], ["follow", "v", "ˈfɑloʊ", "따르다", 1, "자주 쓰는 동사"], ["learn", "v", "lərn", "배우다", 1, "자주 쓰는 동사"], ["teach", "v", "tiʧ", "가르치다", 1, "자주 쓰는 동사"], ["read", "v", "rɛd", "읽다", 1, "자주 쓰는 동사"], ["write", "v", "raɪt", "쓰다", 1, "자주 쓰는 동사"], ["listen", "v", "ˈlɪsən", "듣다", 1, "자주 쓰는 동사"], ["hear", "v", "hir", "들리다", 1, "자주 쓰는 동사"], ["see", "v", "si", "보다", 1, "자주 쓰는 동사"], ["look", "v", "lʊk", "보다, 바라보다", 1, "자주 쓰는 동사"], ["watch", "v", "wɔʧ", "지켜보다", 1, "자주 쓰는 동사"], ["think", "v", "θɪŋk", "생각하다", 1, "자주 쓰는 동사"], ["remember", "v", "rɪˈmɛmbər", "기억하다", 1, "자주 쓰는 동사"], ["forget", "v", "fərˈgɛt", "잊다", 1, "자주 쓰는 동사"], ["explain", "v", "ɪkˈspleɪn", "설명하다", 2, "자주 쓰는 동사"], ["choose", "v", "ʧuz", "선택하다", 1, "자주 쓰는 동사"], ["decide", "v", "ˌdɪˈsaɪd", "결정하다", 2, "자주 쓰는 동사"], ["happen", "v", "ˈhæpən", "일어나다, 발생하다", 2, "자주 쓰는 동사"], ["live", "v", "lɪv", "살다", 1, "자주 쓰는 동사"], ["die", "v", "daɪ", "죽다", 1, "자주 쓰는 동사"], ["grow", "v", "groʊ", "자라다, 기르다", 2, "자주 쓰는 동사"], ["win", "v", "wɪn", "이기다", 1, "자주 쓰는 동사"], ["lose", "v", "luz", "지다, 잃다", 1, "자주 쓰는 동사"], ["play", "v", "pleɪ", "놀다, (경기를) 하다", 1, "자주 쓰는 동사"], ["travel", "v", "ˈtrævəl", "여행하다", 1, "자주 쓰는 동사"], ["visit", "v", "ˈvɪzɪt", "방문하다", 1, "자주 쓰는 동사"], ["return", "v", "rɪˈtərn", "돌아오다, 반납하다", 1, "자주 쓰는 동사"], ["check", "v", "ʧɛk", "확인하다", 1, "자주 쓰는 동사"], ["cost", "v", "kɔst", "(비용이) 들다", 2, "자주 쓰는 동사"], ["count", "v", "kaʊnt", "세다", 2, "자주 쓰는 동사"], ["fill", "v", "fɪl", "채우다", 2, "자주 쓰는 동사"], ["fix", "v", "fɪks", "고치다", 2, "자주 쓰는 동사"], ["break", "v", "breɪk", "깨다, 고장 내다", 1, "자주 쓰는 동사"], ["build", "v", "bɪld", "짓다, 만들다", 2, "자주 쓰는 동사"], ["clean", "v", "klin", "청소하다", 1, "자주 쓰는 동사"], ["wash", "v", "wɑʃ", "씻다", 1, "자주 쓰는 동사"], ["cut", "v", "kət", "자르다", 1, "자주 쓰는 동사"], ["hold", "v", "hoʊld", "잡다, 들다", 1, "자주 쓰는 동사"], ["push", "v", "pʊʃ", "밀다", 1, "자주 쓰는 동사"], ["pull", "v", "pʊl", "당기다", 1, "자주 쓰는 동사"], ["throw", "v", "θroʊ", "던지다", 2, "자주 쓰는 동사"], ["catch", "v", "kæʧ", "잡다", 1, "자주 쓰는 동사"], ["touch", "v", "təʧ", "만지다", 2, "자주 쓰는 동사"], ["smell", "v", "smɛl", "냄새 맡다", 2, "자주 쓰는 동사"], ["sit", "v", "sɪt", "앉다", 1, "자주 쓰는 동사"], ["stand", "v", "stænd", "서다", 1, "자주 쓰는 동사"], ["lie", "v", "laɪ", "눕다, 거짓말하다", 2, "자주 쓰는 동사"], ["jump", "v", "ʤəmp", "뛰다, 점프하다", 2, "자주 쓰는 동사"], ["climb", "v", "klaɪm", "오르다", 2, "자주 쓰는 동사"], ["carry on", "v", "ˈkɛri ɔn", "계속하다", 2, "자주 쓰는 동사"], ["allow", "v", "əˈlaʊ", "허락하다", 2, "자주 쓰는 동사"], ["avoid", "v", "əˈvɔɪd", "피하다", 2, "자주 쓰는 동사"], ["borrow", "v", "ˈbɑˌroʊ", "빌리다", 2, "자주 쓰는 동사"], ["lend", "v", "lɛnd", "빌려주다", 2, "자주 쓰는 동사"], ["share", "v", "ʃɛr", "나누다, 공유하다", 2, "자주 쓰는 동사"], ["join", "v", "ʤɔɪn", "합류하다, 가입하다", 2, "자주 쓰는 동사"], ["apologize", "v", "əˈpɑləˌʤaɪz", "사과하다", 2, "자주 쓰는 동사"], ["complain", "v", "kəmˈpleɪn", "불평하다", 2, "자주 쓰는 동사"], ["smile", "v", "smaɪl", "미소짓다", 1, "자주 쓰는 동사"], ["promise", "v", "ˈprɑməs", "약속하다", 2, "자주 쓰는 동사"], ["agree", "v", "əˈgri", "동의하다", 2, "자주 쓰는 동사"], ["disagree", "v", "dɪsəˈgri", "반대하다", 2, "자주 쓰는 동사"], ["mean", "v", "min", "의미하다", 1, "자주 쓰는 동사"], ["tall", "adj", "tɔl", "키가 큰, 높은", 1, "자주 쓰는 형용사"], ["short", "adj", "ʃɔrt", "짧은, 키가 작은", 1, "자주 쓰는 형용사"], ["high", "adj", "haɪ", "높은", 1, "자주 쓰는 형용사"], ["low", "adj", "loʊ", "낮은", 1, "자주 쓰는 형용사"], ["bad", "adj", "bæd", "나쁜", 1, "자주 쓰는 형용사"], ["great", "adj", "greɪt", "훌륭한", 1, "자주 쓰는 형용사"], ["nice", "adj", "nis", "멋진, 친절한", 1, "자주 쓰는 형용사"], ["kind", "adj", "kaɪnd", "친절한", 1, "자주 쓰는 형용사"], ["mean", "adj", "min", "못된, 심술궂은", 2, "자주 쓰는 형용사"], ["easy", "adj", "ˈizi", "쉬운", 1, "자주 쓰는 형용사"], ["hard", "adj", "hɑrd", "어려운, 딱딱한", 1, "자주 쓰는 형용사"], ["difficult", "adj", "ˈdɪfəkəlt", "어려운", 1, "자주 쓰는 형용사"], ["simple", "adj", "ˈsɪmpəl", "간단한", 2, "자주 쓰는 형용사"], ["important", "adj", "ˌɪmˈpɔrtənt", "중요한", 1, "자주 쓰는 형용사"], ["right", "adj", "raɪt", "옳은, 오른쪽의", 1, "자주 쓰는 형용사"], ["wrong", "adj", "rɔŋ", "틀린, 잘못된", 1, "자주 쓰는 형용사"], ["true", "adj", "tru", "사실인, 진짜의", 1, "자주 쓰는 형용사"], ["false", "adj", "fɔls", "거짓의", 2, "자주 쓰는 형용사"], ["same", "adj", "seɪm", "같은", 1, "자주 쓰는 형용사"], ["different", "adj", "ˈdɪfərənt", "다른", 1, "자주 쓰는 형용사"], ["old", "adj", "oʊld", "낡은, 나이 든", 1, "자주 쓰는 형용사"], ["young", "adj", "jəŋ", "어린, 젊은", 1, "자주 쓰는 형용사"], ["fast", "adj", "fæst", "빠른", 1, "자주 쓰는 형용사"], ["slow", "adj", "sloʊ", "느린", 1, "자주 쓰는 형용사"], ["early", "adj", "ˈərli", "이른", 1, "자주 쓰는 형용사"], ["hot", "adj", "hɑt", "더운, 뜨거운", 1, "자주 쓰는 형용사"], ["cold", "adj", "koʊld", "추운, 차가운", 1, "자주 쓰는 형용사"], ["warm", "adj", "wɔrm", "따뜻한", 1, "자주 쓰는 형용사"], ["cool", "adj", "kul", "시원한, 멋진", 1, "자주 쓰는 형용사"], ["wet", "adj", "wɛt", "젖은", 2, "자주 쓰는 형용사"], ["dry", "adj", "draɪ", "마른, 건조한", 2, "자주 쓰는 형용사"], ["full", "adj", "fʊl", "가득 찬", 1, "자주 쓰는 형용사"], ["empty", "adj", "ˈɛmti", "빈", 2, "자주 쓰는 형용사"], ["open", "adj", "ˈoʊpən", "열린", 1, "자주 쓰는 형용사"], ["free", "adj", "fri", "자유로운, 무료의", 1, "자주 쓰는 형용사"], ["busy", "adj", "ˈbɪzi", "바쁜", 1, "자주 쓰는 형용사"], ["ready", "adj", "ˈrɛdi", "준비된", 1, "자주 쓰는 형용사"], ["sure", "adj", "ʃʊr", "확신하는", 1, "자주 쓰는 형용사"], ["possible", "adj", "ˈpɑsəbəl", "가능한", 2, "자주 쓰는 형용사"], ["impossible", "adj", "ˌɪmˈpɑsəbəl", "불가능한", 2, "자주 쓰는 형용사"], ["real", "adj", "ril", "진짜의", 1, "자주 쓰는 형용사"], ["strong", "adj", "strɔŋ", "강한", 1, "자주 쓰는 형용사"], ["weak", "adj", "wik", "약한", 2, "자주 쓰는 형용사"], ["rich", "adj", "rɪʧ", "부유한", 1, "자주 쓰는 형용사"], ["poor", "adj", "pur", "가난한", 1, "자주 쓰는 형용사"], ["beautiful", "adj", "ˈbjutəfəl", "아름다운", 1, "자주 쓰는 형용사"], ["pretty", "adj", "ˈprɪti", "예쁜", 1, "자주 쓰는 형용사"], ["ugly", "adj", "ˈəgli", "못생긴", 2, "자주 쓰는 형용사"], ["loud", "adj", "laʊd", "시끄러운", 2, "자주 쓰는 형용사"], ["bright", "adj", "braɪt", "밝은", 2, "자주 쓰는 형용사"], ["dark", "adj", "dɑrk", "어두운", 1, "자주 쓰는 형용사"], ["light", "adj", "laɪt", "가벼운, 밝은", 1, "자주 쓰는 형용사"], ["soft", "adj", "sɔft", "부드러운", 2, "자주 쓰는 형용사"], ["hard", "adj", "hɑrd", "단단한", 1, "자주 쓰는 형용사"], ["smooth", "adj", "smuð", "매끄러운", 2, "자주 쓰는 형용사"], ["sharp", "adj", "ʃɑrp", "날카로운", 2, "자주 쓰는 형용사"], ["thick", "adj", "θɪk", "두꺼운", 2, "자주 쓰는 형용사"], ["thin", "adj", "θɪn", "얇은, 마른", 2, "자주 쓰는 형용사"], ["wide", "adj", "waɪd", "넓은", 2, "자주 쓰는 형용사"], ["narrow", "adj", "ˈnɛroʊ", "좁은", 2, "자주 쓰는 형용사"], ["deep", "adj", "dip", "깊은", 2, "자주 쓰는 형용사"], ["famous", "adj", "ˈfeɪməs", "유명한", 2, "자주 쓰는 형용사"], ["special", "adj", "ˈspɛʃəl", "특별한", 2, "자주 쓰는 형용사"], ["normal", "adj", "ˈnɔrməl", "보통의, 정상의", 2, "자주 쓰는 형용사"], ["strange", "adj", "streɪnʤ", "이상한", 2, "자주 쓰는 형용사"], ["funny", "adj", "ˈfəni", "웃긴, 재미있는", 1, "자주 쓰는 형용사"], ["serious", "adj", "ˈsɪriəs", "진지한, 심각한", 2, "자주 쓰는 형용사"], ["careful", "adj", "ˈkɛrfəl", "조심스러운", 2, "자주 쓰는 형용사"], ["dangerous", "adj", "ˈdeɪnʤərəs", "위험한", 2, "자주 쓰는 형용사"], ["healthy", "adj", "ˈhɛlθi", "건강한", 2, "자주 쓰는 형용사"], ["favorite", "adj", "ˈfeɪvərɪt", "가장 좋아하는", 1, "자주 쓰는 형용사"], ["enough", "adj", "ɪˈnəf", "충분한", 1, "자주 쓰는 형용사"], ["whole", "adj", "hoʊl", "전체의", 2, "자주 쓰는 형용사"], ["single", "adj", "ˈsɪŋgəl", "하나의, 혼자의", 2, "자주 쓰는 형용사"], ["main", "adj", "meɪn", "주요한", 2, "자주 쓰는 형용사"], ["own", "adj", "oʊn", "자신의", 2, "자주 쓰는 형용사"], ["last", "adj", "læst", "마지막의, 지난", 1, "자주 쓰는 형용사"], ["next", "adj", "nɛkst", "다음의", 1, "자주 쓰는 형용사"], ["final", "adj", "ˈfaɪnəl", "최종의", 2, "자주 쓰는 형용사"], ["local", "adj", "ˈloʊkəl", "현지의, 지역의", 2, "자주 쓰는 형용사"], ["public", "adj", "ˈpəblɪk", "공공의", 2, "자주 쓰는 형용사"], ["private", "adj", "ˈpraɪvət", "사적인, 개인의", 2, "자주 쓰는 형용사"], ["foreign", "adj", "ˈfɔrən", "외국의", 2, "자주 쓰는 형용사"], ["usual", "adj", "ˈjuʒəwəl", "평소의, 보통의", 2, "자주 쓰는 형용사"], ["lucky", "adj", "ˈləki", "운이 좋은", 2, "자주 쓰는 형용사"], ["please repeat", "phr", "pliz rɪˈpit", "다시 말해 주세요", 1, "인사·기본표현"], ["I don't know", "phr", "aɪ doʊnt noʊ", "모르겠어요", 1, "인사·기본표현"], ["I understand", "phr", "aɪ ˌəndərˈstænd", "이해했어요", 1, "인사·기본표현"], ["no problem", "phr", "noʊ ˈprɑbləm", "문제없어요", 1, "인사·기본표현"], ["you're welcome", "phr", "jʊr ˈwɛlkəm", "천만에요", 1, "인사·기본표현"], ["long time no see", "phr", "lɔŋ taɪm noʊ si", "오랜만이에요", 2, "인사·기본표현"], ["have a nice day", "phr", "hæv ə nis deɪ", "좋은 하루 보내세요", 1, "인사·기본표현"], ["good luck", "phr", "gʊd lək", "행운을 빌어요", 1, "인사·기본표현"], ["cheers", "int", "ʧɪrz", "건배", 2, "인사·기본표현"], ["pardon", "int", "ˈpɑrdən", "뭐라고요?(다시 말해 달라고)", 2, "인사·기본표현"], ["certainly", "adv", "ˈsərtənli", "물론입니다", 2, "인사·기본표현"], ["absolutely", "adv", "ˌæbsəˈlutli", "당연하죠, 그럼요", 2, "인사·기본표현"], ["by the way", "phr", "baɪ ðə weɪ", "그런데, 참", 2, "인사·기본표현"], ["gentleman", "n", "ˈʤɛnəlmən", "신사", 2, "인사·기본표현"], ["lady", "n", "ˈleɪdi", "숙녀", 2, "인사·기본표현"], ["guy", "n", "gaɪ", "남자, 녀석", 1, "인사·기본표현"], ["neighbor", "n", "ˈneɪbər", "이웃", 2, "인사·기본표현"], ["stranger", "n", "ˈstreɪnʤər", "낯선 사람", 2, "인사·기본표현"], ["guest", "n", "gɛst", "손님", 1, "인사·기본표현"], ["host", "n", "hoʊst", "주인, 진행자", 2, "인사·기본표현"], ["early morning", "n", "ˈərli ˈmɔrnɪŋ", "이른 아침, 새벽", 1, "시간·날짜"], ["tonight", "n", "təˈnaɪt", "오늘 밤", 1, "시간·날짜"], ["recently", "adv", "ˈrisəntli", "최근에", 2, "시간·날짜"], ["already", "adv", "ɔˈrɛdi", "이미, 벌써", 1, "시간·날짜"], ["yet", "adv", "jɛt", "아직", 1, "시간·날짜"], ["still", "adv", "stɪl", "여전히, 아직도", 1, "시간·날짜"], ["during", "prep", "ˈdʊrɪŋ", "~동안", 2, "시간·날짜"], ["until", "prep", "ənˈtɪl", "~까지", 1, "시간·날짜"], ["before", "prep", "ˌbiˈfɔr", "~전에", 1, "시간·날짜"], ["after", "prep", "ˈæftər", "~후에", 1, "시간·날짜"], ["moment", "n", "ˈmoʊmənt", "잠깐, 순간", 2, "시간·날짜"], ["period", "n", "ˈpɪriəd", "기간", 2, "시간·날짜"], ["century", "n", "ˈsɛnʧəri", "세기, 100년", 2, "시간·날짜"], ["decade", "n", "ˈdɛkeɪd", "10년", 2, "시간·날짜"], ["future", "n", "fˈjuʧər", "미래", 2, "시간·날짜"], ["past", "n", "pæst", "과거", 2, "시간·날짜"], ["present", "n", "ˈprɛzənt", "현재, 선물", 2, "시간·날짜"], ["anniversary", "n", "ˌænəˈvərsəri", "기념일", 2, "시간·날짜"], ["menu please", "phr", "ˈmɛnju pliz", "메뉴 주세요", 1, "음식·식당"], ["water please", "phr", "ˈwɔtər pliz", "물 좀 주세요", 1, "음식·식당"], ["the check please", "phr", "ðə ʧɛk pliz", "계산서 주세요", 1, "음식·식당"], ["seafood", "n", "ˈsiˌfud", "해산물", 2, "음식·식당"], ["shrimp", "n", "ʃrɪmp", "새우", 2, "음식·식당"], ["crab", "n", "kræb", "게", 2, "음식·식당"], ["soy sauce", "n", "sɔɪ sɔs", "간장", 2, "음식·식당"], ["vinegar", "n", "ˈvɪnəgər", "식초", 2, "음식·식당"], ["garlic", "n", "ˈgɑrlɪk", "마늘", 2, "음식·식당"], ["ginger", "n", "ˈʤɪnʤər", "생강", 2, "음식·식당"], ["mushroom", "n", "ˈməʃrum", "버섯", 2, "음식·식당"], ["corn", "n", "kɔrn", "옥수수", 2, "음식·식당"], ["bean", "n", "bin", "콩", 2, "음식·식당"], ["cabbage", "n", "ˈkæbɪʤ", "양배추", 2, "음식·식당"], ["lettuce", "n", "ˈlɛtəs", "상추", 2, "음식·식당"], ["cucumber", "n", "ˈkjukəmbər", "오이", 2, "음식·식당"], ["pineapple", "n", "ˈpaɪˌnæpəl", "파인애플", 2, "음식·식당"], ["watermelon", "n", "ˈwɔtərˌmɛlən", "수박", 2, "음식·식당"], ["peach", "n", "piʧ", "복숭아", 2, "음식·식당"], ["pear", "n", "pɛr", "배(과일)", 2, "음식·식당"], ["melon", "n", "ˈmɛlən", "멜론", 2, "음식·식당"], ["cherry", "n", "ˈʧɛri", "체리", 2, "음식·식당"], ["nut", "n", "nət", "견과류", 2, "음식·식당"], ["honey", "n", "ˈhəni", "꿀", 2, "음식·식당"], ["jam", "n", "ʤæm", "잼", 2, "음식·식당"], ["cereal", "n", "ˈsɪriəl", "시리얼", 2, "음식·식당"], ["yogurt", "n", "ˈjoʊgərt", "요구르트", 2, "음식·식당"], ["sandwich", "n", "ˈsænwɪʧ", "샌드위치", 1, "음식·식당"], ["pizza", "n", "ˈpitsə", "피자", 1, "음식·식당"], ["burger", "n", "ˈbərgər", "햄버거", 1, "음식·식당"], ["fries", "n", "fraɪz", "감자튀김", 2, "음식·식당"], ["steak", "n", "steɪk", "스테이크", 2, "음식·식당"], ["pasta", "n", "ˈpɑstə", "파스타", 1, "음식·식당"], ["curry", "n", "ˈkəri", "카레", 2, "음식·식당"], ["sausage", "n", "ˈsɔsɪʤ", "소시지", 2, "음식·식당"], ["bacon", "n", "ˈbeɪkən", "베이컨", 2, "음식·식당"], ["ham", "n", "hæm", "햄", 2, "음식·식당"], ["toast", "n", "toʊst", "토스트", 2, "음식·식당"], ["pancake", "n", "ˈpænˌkeɪk", "팬케이크", 2, "음식·식당"], ["cake", "n", "keɪk", "케이크", 1, "음식·식당"], ["cookie", "n", "ˈkʊki", "쿠키", 2, "음식·식당"], ["chocolate", "n", "ˈʧɔklət", "초콜릿", 1, "음식·식당"], ["candy", "n", "ˈkændi", "사탕", 2, "음식·식당"], ["ice cream", "n", "aɪs krim", "아이스크림", 1, "음식·식당"], ["smell", "n", "smɛl", "냄새", 2, "음식·식당"], ["flavor", "n", "ˈfleɪvər", "맛, 풍미", 2, "음식·식당"], ["portion", "n", "ˈpɔrʃən", "1인분, 양", 2, "음식·식당"], ["airport shuttle", "n", "ˈɛrˌpɔrt ˈʃətəl", "공항 셔틀버스", 2, "교통·이동"], ["platform number", "n", "ˈplætˌfɔrm ˈnəmbər", "승강장 번호", 2, "교통·이동"], ["timetable", "n", "ˈtaɪmˌteɪbəl", "시간표", 2, "교통·이동"], ["crossing", "n", "ˈkrɔsɪŋ", "건널목, 횡단보도", 2, "교통·이동"], ["sidewalk", "n", "ˈsaɪdˌwɔk", "인도, 보도", 2, "교통·이동"], ["traffic light", "n", "ˈtræfɪk laɪt", "신호등", 2, "교통·이동"], ["roundabout", "n", "ˈraʊndəˌbaʊt", "회전 교차로", 2, "교통·이동"], ["intersection", "n", "ˌɪntərˈsɛkʃən", "교차로", 2, "교통·이동"], ["fuel", "n", "fjuəl", "연료", 2, "교통·이동"], ["brake", "n", "breɪk", "브레이크", 2, "교통·이동"], ["tire", "n", "taɪər", "타이어", 2, "교통·이동"], ["helmet", "n", "ˈhɛlmət", "헬멧", 2, "교통·이동"], ["rental", "n", "ˈrɛntəl", "대여, 렌트", 2, "교통·이동"], ["scooter", "n", "ˈskutər", "스쿠터", 2, "교통·이동"], ["truck", "n", "trək", "트럭", 2, "교통·이동"], ["van", "n", "væn", "승합차, 밴", 2, "교통·이동"], ["carriage", "n", "ˈkɛrəʤ", "객차, 마차", 2, "교통·이동"], ["cabin", "n", "ˈkæbən", "선실, 객실", 2, "교통·이동"], ["deck", "n", "dɛk", "갑판", 2, "교통·이동"], ["port", "n", "pɔrt", "항구", 2, "교통·이동"], ["harbor", "n", "ˈhɑrbər", "항구", 2, "교통·이동"], ["double room", "n", "ˈdəbəl rum", "더블룸", 2, "숙박"], ["single room", "n", "ˈsɪŋgəl rum", "싱글룸", 2, "숙박"], ["twin room", "n", "twɪn rum", "트윈룸", 2, "숙박"], ["suite", "n", "swit", "스위트룸", 2, "숙박"], ["balcony", "n", "ˈbælkəni", "발코니", 2, "숙박"], ["view", "n", "vju", "전망, 경치", 1, "숙박"], ["air conditioner", "n", "ɛr kənˈdɪʃənər", "에어컨", 2, "숙박"], ["heater", "n", "ˈhitər", "난방기, 히터", 2, "숙박"], ["fridge", "n", "frɪʤ", "냉장고", 2, "숙박"], ["kettle", "n", "ˈkɛtəl", "주전자", 2, "숙박"], ["hanger", "n", "ˈhæŋər", "옷걸이", 2, "숙박"], ["mirror", "n", "ˈmɪrər", "거울", 1, "숙박"], ["curtain", "n", "ˈkərtən", "커튼", 2, "숙박"], ["lamp", "n", "læmp", "램프, 조명", 2, "숙박"], ["socket", "n", "ˈsɑkət", "콘센트", 2, "숙박"], ["adapter", "n", "əˈdæptər", "어댑터", 2, "숙박"], ["deposit", "n", "dɪˈpɑzət", "보증금", 2, "숙박"], ["minibar", "n", "ˈmɪniˌbɑr", "미니바", 2, "숙박"], ["housekeeping", "n", "ˈhaʊˌskipɪŋ", "객실 청소", 2, "숙박"], ["wake-up call", "n", "ˈweɪˌkəp kɔl", "모닝콜", 2, "숙박"], ["department store", "n", "dɪˈpɑrtmənt stɔr", "백화점", 1, "쇼핑"], ["convenience store", "n", "kənˈvinjəns stɔr", "편의점", 1, "쇼핑"], ["bakery", "n", "ˈbeɪkəri", "빵집", 1, "쇼핑"], ["bookstore", "n", "ˈbʊkˌstɔr", "서점", 1, "쇼핑"], ["jewelry", "n", "ˈʤuəlri", "보석류", 2, "쇼핑"], ["cosmetics", "n", "kɑzˈmɛtɪks", "화장품", 2, "쇼핑"], ["perfume", "n", "pərfˈjum", "향수", 2, "쇼핑"], ["scarf", "n", "skɑrf", "목도리, 스카프", 2, "쇼핑"], ["gloves", "n", "gləvz", "장갑", 2, "쇼핑"], ["belt", "n", "bɛlt", "벨트", 2, "쇼핑"], ["tie", "n", "taɪ", "넥타이", 2, "쇼핑"], ["sneakers", "n", "sˈnikərz", "운동화", 2, "쇼핑"], ["sandals", "n", "ˈsændəlz", "샌들", 2, "쇼핑"], ["umbrella", "n", "ˈəmˌbrɛlə", "우산", 1, "쇼핑"], ["battery", "n", "ˈbætəri", "건전지, 배터리", 2, "쇼핑"], ["charger", "n", "ˈʧɑrʤər", "충전기", 2, "쇼핑"], ["tag", "n", "tæg", "가격표, 태그", 2, "쇼핑"], ["package", "n", "ˈpækɪʤ", "포장, 소포", 2, "쇼핑"], ["basket", "n", "ˈbæskət", "바구니", 2, "쇼핑"], ["cart", "n", "kɑrt", "카트", 2, "쇼핑"], ["fitting", "n", "ˈfɪtɪŋ", "입어 보기, 피팅", 2, "쇼핑"], ["material", "n", "məˈtɪriəl", "재질, 소재", 2, "쇼핑"], ["cotton", "n", "ˈkɔtən", "면, 목화", 2, "쇼핑"], ["leather", "n", "ˈlɛðər", "가죽", 2, "쇼핑"], ["plastic", "n", "ˈplæstɪk", "플라스틱", 2, "쇼핑"], ["gas station", "n", "gæs ˈsteɪʃən", "주유소", 2, "길찾기·장소"], ["bus stop", "n", "bəs stɑp", "버스 정류장", 1, "길찾기·장소"], ["train station", "n", "treɪn ˈsteɪʃən", "기차역", 1, "길찾기·장소"], ["parking lot", "n", "ˈpɑrkɪŋ lɔt", "주차장", 2, "길찾기·장소"], ["crosswalk", "n", "ˈkrɑsˌwɑk", "횡단보도", 2, "길찾기·장소"], ["traffic circle", "n", "ˈtræfɪk ˈsərkəl", "로터리", 2, "길찾기·장소"], ["alley", "n", "ˈæli", "골목", 2, "길찾기·장소"], ["avenue", "n", "ˈævəˌnu", "대로", 2, "길찾기·장소"], ["lane", "n", "leɪn", "차선, 골목길", 2, "길찾기·장소"], ["floor plan", "n", "flɔr plæn", "평면도, 안내도", 2, "길찾기·장소"], ["information", "n", "ˌɪnˌfɔrˈmeɪʃən", "안내, 정보", 1, "길찾기·장소"], ["tourist", "n", "ˈtʊrɪst", "관광객", 2, "길찾기·장소"], ["guide", "n", "gaɪd", "안내인, 가이드", 1, "길찾기·장소"], ["landmark", "n", "ˈlændˌmɑrk", "랜드마크, 명소", 2, "길찾기·장소"], ["temple", "n", "ˈtɛmpəl", "사원, 절", 2, "길찾기·장소"], ["palace", "n", "ˈpæləs", "궁전", 2, "길찾기·장소"], ["tower", "n", "taʊər", "탑, 타워", 2, "길찾기·장소"], ["stadium", "n", "ˈsteɪdiəm", "경기장", 2, "길찾기·장소"], ["theater", "n", "ˈθieɪtər", "극장", 1, "길찾기·장소"], ["library", "n", "ˈlaɪbrɛˌri", "도서관", 1, "길찾기·장소"], ["gallery", "n", "ˈgæləri", "미술관, 갤러리", 2, "길찾기·장소"], ["zoo", "n", "zu", "동물원", 1, "길찾기·장소"], ["aquarium", "n", "əkˈwɛriəm", "수족관", 2, "길찾기·장소"], ["embassy", "n", "ˈɛmbəsi", "대사관", 2, "길찾기·장소"], ["gym", "n", "ʤɪm", "체육관, 헬스장", 2, "길찾기·장소"], ["clinic", "n", "ˈklɪnɪk", "병원, 진료소", 2, "몸·건강·긴급"], ["dentist", "n", "ˈdɛntɪst", "치과의사", 2, "몸·건강·긴급"], ["prescription", "n", "prəˈskrɪpʃən", "처방전", 2, "몸·건강·긴급"], ["bandage", "n", "ˈbændɪʤ", "붕대", 2, "몸·건강·긴급"], ["mask", "n", "mæsk", "마스크", 2, "몸·건강·긴급"], ["thermometer", "n", "θərˈmɑmətər", "체온계", 2, "몸·건강·긴급"], ["symptom", "n", "ˈsɪmptəm", "증상", 2, "몸·건강·긴급"], ["flu", "n", "fluː", "독감", 2, "몸·건강·긴급"], ["diarrhea", "n", "ˌdaɪərˈiə", "설사", 2, "몸·건강·긴급"], ["nausea", "n", "ˈnɔziə", "메스꺼움", 2, "몸·건강·긴급"], ["sunburn", "n", "ˈsənˌbərn", "햇볕에 탐, 화상", 2, "몸·건강·긴급"], ["insect bite", "n", "ˈɪnˌsɛkt baɪt", "벌레 물림", 2, "몸·건강·긴급"], ["sunscreen", "n", "ˈsənskrin", "자외선 차단제", 2, "몸·건강·긴급"], ["painkiller", "n", "ˈpeɪnˌkɪlər", "진통제", 2, "몸·건강·긴급"], ["vitamin", "n", "ˈvaɪtəmən", "비타민", 2, "몸·건강·긴급"], ["insurance", "n", "ˌɪnˈʃʊrəns", "보험", 2, "몸·건강·긴급"], ["firefighter", "n", "ˈfaɪrˌfaɪtər", "소방관", 2, "몸·건강·긴급"], ["theft", "n", "θɛft", "도난, 절도", 2, "몸·건강·긴급"], ["lost item", "n", "lɔst ˈaɪtəm", "분실물", 2, "몸·건강·긴급"], ["warning", "n", "ˈwɔrnɪŋ", "경고", 2, "몸·건강·긴급"], ["thankful", "adj", "ˈθæŋkfəl", "감사하는", 2, "감정·상태"], ["pleased", "adj", "plizd", "기쁜, 만족한", 2, "감정·상태"], ["hopeful", "adj", "ˈhoʊpfəl", "희망에 찬", 2, "감정·상태"], ["curious", "adj", "ˈkjʊriəs", "궁금한", 2, "감정·상태"], ["jealous", "adj", "ˈʤɛləs", "질투하는", 2, "감정·상태"], ["embarrassed", "adj", "ɪmˈbɛrəst", "당황한, 창피한", 2, "감정·상태"], ["frustrated", "adj", "ˈfrəˌstreɪtəd", "좌절한, 답답한", 2, "감정·상태"], ["stressed", "adj", "strɛst", "스트레스 받는", 2, "감정·상태"], ["peaceful", "adj", "ˈpisfəl", "평화로운", 2, "감정·상태"], ["cheerful", "adj", "ˈʧɪrfəl", "쾌활한", 2, "감정·상태"], ["satisfied", "adj", "ˈsætɪsˌfaɪd", "만족한", 2, "감정·상태"], ["annoyed", "adj", "əˈnɔɪd", "짜증난", 2, "감정·상태"], ["amazed", "adj", "əˈmeɪzd", "놀란, 감탄한", 2, "감정·상태"], ["comforted", "adj", "ˈkəmfərtɪd", "위로받은", 2, "감정·상태"], ["patience", "n", "ˈpeɪʃəns", "인내심", 2, "감정·상태"], ["courage", "n", "kərɪʤ", "용기", 2, "감정·상태"], ["memory", "n", "ˈmɛməri", "기억, 추억", 2, "감정·상태"], ["dream", "n", "drim", "꿈", 1, "감정·상태"], ["wish", "n", "wɪʃ", "소원, 바람", 2, "감정·상태"], ["attitude", "n", "ˈætəˌtud", "태도", 2, "감정·상태"], ["travel abroad", "v", "ˈtrævəl əˈbrɔd", "해외여행 하다", 2, "자주 쓰는 동사"], ["rent", "v", "rɛnt", "빌리다, 대여하다", 2, "자주 쓰는 동사"], ["confirm", "v", "kənˈfərm", "확인하다, 확정하다", 2, "자주 쓰는 동사"], ["describe", "v", "dɪˈskraɪb", "묘사하다, 설명하다", 2, "자주 쓰는 동사"], ["suggest", "v", "səˈʤɛst", "제안하다", 2, "자주 쓰는 동사"], ["prepare", "v", "priˈpɛr", "준비하다", 2, "자주 쓰는 동사"], ["plan", "v", "plæn", "계획하다", 1, "자주 쓰는 동사"], ["manage", "v", "ˈmænɪʤ", "관리하다, 해내다", 2, "자주 쓰는 동사"], ["guess", "v", "gɛs", "추측하다", 2, "자주 쓰는 동사"], ["hope", "v", "hoʊp", "바라다, 희망하다", 1, "자주 쓰는 동사"], ["wonder", "v", "ˈwəndər", "궁금해하다", 2, "자주 쓰는 동사"], ["notice", "v", "ˈnoʊtɪs", "알아차리다", 2, "자주 쓰는 동사"], ["accept", "v", "əkˈsɛpt", "받아들이다", 2, "자주 쓰는 동사"], ["refuse", "v", "rɪˈfjuz", "거절하다", 2, "자주 쓰는 동사"], ["offer", "v", "ˈɔfər", "제안하다, 권하다", 2, "자주 쓰는 동사"], ["order", "v", "ˈɔrdər", "주문하다, 명령하다", 1, "자주 쓰는 동사"], ["serve", "v", "sərv", "(음식을) 내다, 봉사하다", 2, "자주 쓰는 동사"], ["deliver", "v", "dɪˈlɪvər", "배달하다", 2, "자주 쓰는 동사"], ["receive", "v", "rɪˈsiv", "받다", 1, "자주 쓰는 동사"], ["collect", "v", "kəˈlɛkt", "모으다, 수집하다", 2, "자주 쓰는 동사"], ["save", "v", "seɪv", "구하다, 저장하다", 1, "자주 쓰는 동사"], ["protect", "v", "prəˈtɛkt", "보호하다", 2, "자주 쓰는 동사"], ["attack", "v", "əˈtæk", "공격하다", 2, "자주 쓰는 동사"], ["escape", "v", "ɪˈskeɪp", "탈출하다, 벗어나다", 2, "자주 쓰는 동사"], ["appear", "v", "əˈpɪr", "나타나다", 2, "자주 쓰는 동사"], ["disappear", "v", "ˌdɪsəˈpɪr", "사라지다", 2, "자주 쓰는 동사"], ["increase", "v", "ˌɪnˈkris", "증가하다", 2, "자주 쓰는 동사"], ["decrease", "v", "ˈdiˌkris", "감소하다", 2, "자주 쓰는 동사"], ["cheap", "adj", "ʧip", "싼", 1, "자주 쓰는 형용사"], ["crowded", "adj", "ˈkraʊdɪd", "붐비는", 2, "자주 쓰는 형용사"], ["empty", "adj", "ˈɛmti", "텅 빈", 2, "자주 쓰는 형용사"], ["modern", "adj", "ˈmɑdərn", "현대적인", 2, "자주 쓰는 형용사"], ["traditional", "adj", "trəˈdɪʃənəl", "전통적인", 2, "자주 쓰는 형용사"], ["ancient", "adj", "ˈeɪnʧənt", "고대의, 오래된", 2, "자주 쓰는 형용사"], ["comfortable", "adj", "ˈkəmfərtəbəl", "아늑한, 편안한", 2, "자주 쓰는 형용사"], ["convenient", "adj", "kənˈvinjənt", "편리한", 2, "자주 쓰는 형용사"], ["useful", "adj", "ˈjusfəl", "유용한", 2, "자주 쓰는 형용사"], ["useless", "adj", "ˈjusləs", "쓸모없는", 2, "자주 쓰는 형용사"], ["necessary", "adj", "ˈnɛsəˌsɛri", "필요한", 2, "자주 쓰는 형용사"], ["common", "adj", "ˈkɑmən", "흔한, 공통의", 2, "자주 쓰는 형용사"], ["rare", "adj", "rɛr", "드문", 2, "자주 쓰는 형용사"], ["frozen", "adj", "ˈfroʊzən", "얼린, 냉동의", 2, "자주 쓰는 형용사"], ["raw", "adj", "rɑ", "날것의", 2, "자주 쓰는 형용사"], ["ripe", "adj", "raɪp", "익은", 2, "자주 쓰는 형용사"], ["tight", "adj", "taɪt", "꽉 끼는, 팽팽한", 2, "자주 쓰는 형용사"], ["loose", "adj", "lus", "헐렁한", 2, "자주 쓰는 형용사"], ["flat", "adj", "flæt", "평평한", 2, "자주 쓰는 형용사"], ["round", "adj", "raʊnd", "둥근", 2, "자주 쓰는 형용사"], ["square", "adj", "skwɛr", "네모난", 2, "자주 쓰는 형용사"], ["straight", "adj", "streɪt", "곧은", 1, "자주 쓰는 형용사"], ["curved", "adj", "kərvd", "굽은", 2, "자주 쓰는 형용사"], ["gentle", "adj", "ˈʤɛnəl", "온화한, 부드러운", 2, "자주 쓰는 형용사"], ["polite", "adj", "pəˈlaɪt", "예의 바른", 2, "자주 쓰는 형용사"], ["rude", "adj", "rud", "무례한", 2, "자주 쓰는 형용사"], ["honest", "adj", "ˈɑnəst", "정직한", 2, "자주 쓰는 형용사"], ["generous", "adj", "ˈʤɛnərəs", "너그러운", 2, "자주 쓰는 형용사"]];
+const SENT=[["Nice to meet you.", "만나서 반갑습니다.", "기본·인사"], ["How are you doing?", "어떻게 지내세요?", "기본·인사"], ["Could you help me, please?", "저 좀 도와주시겠어요?", "기본·인사"], ["I'm sorry, I don't understand.", "죄송해요, 이해를 못했어요.", "기본·인사"], ["Could you say that again?", "다시 한 번 말씀해 주시겠어요?", "기본·인사"], ["Could you speak more slowly?", "좀 더 천천히 말씀해 주시겠어요?", "기본·인사"], ["Do you speak Korean?", "한국어 하실 수 있나요?", "기본·인사"], ["Thank you so much for your help.", "도와주셔서 정말 감사합니다.", "기본·인사"], ["No problem at all.", "전혀 문제없어요.", "기본·인사"], ["Excuse me, may I ask you something?", "실례지만, 뭐 좀 여쭤봐도 될까요?", "기본·인사"], ["I'm here on vacation.", "저는 휴가차 왔습니다.", "공항·입국"], ["I'll be staying for five days.", "5일 동안 머물 예정입니다.", "공항·입국"], ["Here is my passport.", "여기 제 여권이요.", "공항·입국"], ["Where can I pick up my luggage?", "수하물은 어디서 찾나요?", "공항·입국"], ["I have nothing to declare.", "신고할 물건은 없습니다.", "공항·입국"], ["Where is the gate for this flight?", "이 항공편 탑승구는 어디인가요?", "공항·입국"], ["My flight has been delayed.", "제 항공편이 지연됐어요.", "공항·입국"], ["Can I have a window seat, please?", "창가 좌석으로 부탁드려요.", "공항·입국"], ["I missed my connecting flight.", "환승 비행기를 놓쳤어요.", "공항·입국"], ["Where is the currency exchange?", "환전소는 어디에 있나요?", "공항·입국"], ["How do I get to downtown?", "시내에는 어떻게 가나요?", "이동·교통"], ["Does this bus go to the station?", "이 버스가 역으로 가나요?", "이동·교통"], ["One ticket to the city center, please.", "시내 중심가로 가는 표 한 장 주세요.", "이동·교통"], ["How much is the fare?", "요금이 얼마인가요?", "이동·교통"], ["Please take me to this address.", "이 주소로 데려다 주세요.", "이동·교통"], ["Where is the nearest subway station?", "가장 가까운 지하철역이 어디인가요?", "이동·교통"], ["Which line should I take?", "어느 노선을 타야 하나요?", "이동·교통"], ["Where do I transfer?", "어디서 갈아타나요?", "이동·교통"], ["Please stop here.", "여기서 세워 주세요.", "이동·교통"], ["How long does it take?", "얼마나 걸리나요?", "이동·교통"], ["I have a reservation under my name.", "제 이름으로 예약했어요.", "숙박"], ["I'd like to check in, please.", "체크인 하고 싶어요.", "숙박"], ["What time is checkout?", "체크아웃은 몇 시인가요?", "숙박"], ["Is breakfast included?", "조식이 포함되어 있나요?", "숙박"], ["Could I have the Wi-Fi password?", "와이파이 비밀번호를 알 수 있을까요?", "숙박"], ["The air conditioner isn't working.", "에어컨이 작동하지 않아요.", "숙박"], ["Could I get an extra towel?", "수건 하나 더 주실 수 있나요?", "숙박"], ["Can I leave my luggage here?", "여기에 짐을 맡길 수 있나요?", "숙박"], ["Is there a room available for tonight?", "오늘 밤 묵을 방이 있나요?", "숙박"], ["Could you call me a taxi?", "택시 좀 불러 주시겠어요?", "숙박"], ["A table for two, please.", "두 명 자리 부탁해요.", "식당"], ["Could I see the menu?", "메뉴 좀 볼 수 있을까요?", "식당"], ["What do you recommend?", "무엇을 추천하시나요?", "식당"], ["I'll have this one, please.", "이걸로 주세요.", "식당"], ["Can I get some water, please?", "물 좀 주시겠어요?", "식당"], ["I'm allergic to nuts.", "저는 견과류 알레르기가 있어요.", "식당"], ["Not too spicy, please.", "너무 맵지 않게 해 주세요.", "식당"], ["Could I get the check, please?", "계산서 좀 주시겠어요?", "식당"], ["Can I pay by card?", "카드로 계산할 수 있나요?", "식당"], ["Can I have this to go?", "이거 포장해 주실 수 있나요?", "식당"], ["How much is this?", "이거 얼마예요?", "쇼핑"], ["Do you have this in a bigger size?", "더 큰 사이즈 있나요?", "쇼핑"], ["Can I try this on?", "이거 입어 봐도 될까요?", "쇼핑"], ["Where is the fitting room?", "탈의실은 어디인가요?", "쇼핑"], ["Do you accept credit cards?", "신용카드 받나요?", "쇼핑"], ["Can I get a receipt, please?", "영수증 좀 주시겠어요?", "쇼핑"], ["Is there a discount?", "할인되나요?", "쇼핑"], ["Can I get a refund?", "환불받을 수 있나요?", "쇼핑"], ["Excuse me, where is the restroom?", "실례합니다, 화장실이 어디인가요?", "길찾기"], ["Could you show me on the map?", "지도에서 보여 주실 수 있나요?", "길찾기"], ["Is it far from here?", "여기서 먼가요?", "길찾기"], ["Go straight and turn left.", "직진하다가 왼쪽으로 도세요.", "길찾기"], ["I think I'm lost.", "길을 잃은 것 같아요.", "길찾기"], ["Is it within walking distance?", "걸어갈 수 있는 거리인가요?", "길찾기"], ["Help me, please!", "도와주세요!", "긴급"], ["Please call an ambulance.", "구급차를 불러 주세요.", "긴급"], ["I need to see a doctor.", "의사에게 진료를 받아야 해요.", "긴급"], ["I lost my passport.", "여권을 잃어버렸어요.", "긴급"], ["Where is the nearest hospital?", "가장 가까운 병원이 어디인가요?", "긴급"], ["Call the police, please.", "경찰을 불러 주세요.", "긴급"]];
+
+const CAT_EMOJI={"인사·기본표현":"👋","숫자·돈":"💰","시간·날짜":"📅","음식·식당":"🍽️","교통·이동":"🚕","숙박":"🏨","쇼핑":"🛍️","공항·입국":"✈️","길찾기·장소":"🗺️","몸·건강·긴급":"🚑","감정·상태":"😊","자주 쓰는 동사":"🏃","자주 쓰는 형용사":"🎨"};
+const CATS=Object.keys(CAT_EMOJI).filter(c=>DICT.some(w=>w[5]===c));
+const SENT_CATS=[...new Set(SENT.map(s=>s[2]))];
+
+const DEFAULT={streak:0,lastDay:null,goalDate:null,todayCount:0,goal:20,sound:true,autoTTS:false,rate:0.9,wrong:[],resume:null};
+let ST=load();
+function load(){try{const r=JSON.parse(localStorage.getItem('engstudy'));return Object.assign({},DEFAULT,r||{})}catch(e){return{...DEFAULT}}}
+function save(){localStorage.setItem('engstudy',JSON.stringify(ST))}
+function todayStr(){return new Date().toISOString().slice(0,10)}
+
+(function initDay(){
+  const t=todayStr();
+  if(ST.goalDate!==t){ST.goalDate=t;ST.todayCount=0}
+  save();
+})();
+
+let voices=[];
+function loadVoices(){voices=speechSynthesis.getVoices();}
+loadVoices();
+if(typeof speechSynthesis!=='undefined')speechSynthesis.onvoiceschanged=loadVoices;
+function speak(text){
+  if(!('speechSynthesis' in window))return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US';u.rate=ST.rate;
+  const v=voices.find(v=>/en[-_]US/i.test(v.lang))||voices.find(v=>/^en/i.test(v.lang));
+  if(v)u.voice=v;
+  speechSynthesis.speak(u);
+}
+
+let actx;
+function beep(ok){
+  if(!ST.sound)return;
+  try{
+    actx=actx||new (window.AudioContext||window.webkitAudioContext)();
+    const notes= ok?[523,659,784]:[311,196];
+    let t=actx.currentTime;
+    notes.forEach((f,i)=>{
+      const o=actx.createOscillator(),g=actx.createGain();
+      o.type=ok?'sine':'square';o.frequency.value=f;
+      o.connect(g);g.connect(actx.destination);
+      g.gain.setValueAtTime(0.0001,t);
+      g.gain.exponentialRampToValueAtTime(0.22,t+0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001,t+0.16);
+      o.start(t);o.stop(t+0.17);t+=ok?0.12:0.16;
+    });
+  }catch(e){}
+}
+
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('s-'+id).classList.add('active');
+  window.scrollTo(0,0);
+  const titles={home:'🌍 여행 영어',cat:'주제 선택',quiz:'단어 퀴즈',result:'결과',dict:'단어 사전',phr:'회화 문장'};
+  document.getElementById('barTitle').textContent=titles[id]||'🌍 여행 영어';
+}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),1800);}
+
+function renderHome(){
+  document.getElementById('streakNum').textContent=ST.streak;
+  const done=Math.min(ST.todayCount,ST.goal);
+  document.getElementById('goalVal').textContent=done+'/'+ST.goal;
+  document.getElementById('goalDesc').textContent='퀴즈 '+ST.goal+'문제 풀기'+(done>=ST.goal?' ✅ 달성!':'');
+  const C=2*Math.PI*31, off=C*(1-done/ST.goal);
+  const arc=document.getElementById('goalArc');
+  arc.style.strokeDasharray=C;arc.style.strokeDashoffset=Math.max(0,off);
+  document.getElementById('reviewDesc').textContent=ST.wrong.length+'개 대기';
+  document.getElementById('dictCount').textContent=DICT.length+'단어 · 검색·발음';
+  const rt=document.getElementById('resumeTile');
+  if(ST.resume){rt.style.display='';document.getElementById('resumeDesc').textContent=CAT_EMOJI[ST.resume.cat]+' '+ST.resume.cat+' ('+(ST.resume.idx+1)+'/10)';}
+  else rt.style.display='none';
+}
+
+function renderCats(){
+  const g=document.getElementById('catGrid');g.innerHTML='';
+  CATS.forEach(c=>{
+    const n=DICT.filter(w=>w[5]===c).length;
+    const b=document.createElement('button');b.className='cat';
+    b.innerHTML=`<div class="emo">${CAT_EMOJI[c]}</div><b>${c}</b><span>${n}단어</span>`;
+    b.onclick=()=>startQuiz(c);
+    g.appendChild(b);
+  });
+}
+
+let quiz=null;
+function pick(arr,n,exclude){const pool=arr.filter(x=>x!==exclude);const r=[];const used=new Set();while(r.length<n&&used.size<pool.length){const i=Math.floor(Math.random()*pool.length);if(used.has(i))continue;used.add(i);r.push(pool[i]);}return r;}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function optionsFor(w,type,pool){
+  const disp=x=>type==='ko2en'?x[0]:x[3];
+  const correct=disp(w);
+  const opts=[correct];const seen=new Set([correct]);
+  for(const src of [pool,DICT]){
+    for(const c of shuffle(src.filter(x=>x!==w))){
+      const dv=disp(c);
+      if(seen.has(dv))continue;
+      seen.add(dv);opts.push(dv);
+      if(opts.length===4)break;
+    }
+    if(opts.length===4)break;
+  }
+  return shuffle(opts);
+}
+function buildQuestions(pool){
+  const qs=[];const chosen=shuffle([...pool]).slice(0,10);
+  chosen.forEach(w=>{
+    const type=['en2ko','ko2en','listen'][Math.floor(Math.random()*3)];
+    qs.push({w,type,opts:optionsFor(w,type,pool)});
+  });
+  return qs;
+}
+function startQuiz(cat,fromResume){
+  const pool=DICT.filter(w=>w[5]===cat);
+  if(pool.length<4){toast('단어가 부족한 주제예요');return;}
+  if(fromResume&&ST.resume&&ST.resume.cat===cat){
+    quiz={cat,qs:ST.resume.qs,idx:ST.resume.idx,score:ST.resume.score,combo:ST.resume.combo,maxCombo:ST.resume.maxCombo,mode:'topic'};
+  }else{
+    quiz={cat,qs:buildQuestions(pool),idx:0,score:0,combo:0,maxCombo:0,mode:'topic'};
+  }
+  show('quiz');renderQ();
+}
+function startReview(){
+  if(ST.wrong.length<1){toast('복습할 오답이 없어요 👍');return;}
+  const pool=ST.wrong.map(k=>DICT.find(w=>w[0]+'|'+w[3]===k)).filter(Boolean);
+  if(pool.length<1){ST.wrong=[];save();toast('복습할 오답이 없어요');return;}
+  const qs=shuffle([...pool]).slice(0,10).map(w=>{
+    const type=['en2ko','ko2en','listen'][Math.floor(Math.random()*3)];
+    return{w,type,opts:optionsFor(w,type,DICT)};
+  });
+  quiz={cat:'오답 복습',qs,idx:0,score:0,combo:0,maxCombo:0,mode:'review'};
+  show('quiz');renderQ();
+}
+function saveResume(){
+  if(quiz&&quiz.mode==='topic'&&quiz.idx<quiz.qs.length){
+    ST.resume={cat:quiz.cat,qs:quiz.qs,idx:quiz.idx,score:quiz.score,combo:quiz.combo,maxCombo:quiz.maxCombo};
+  }else{ST.resume=null;}
+  save();
+}
+function escapeQ(s){return s.replace(/'/g,"\\'");}
+function renderQ(){
+  const q=quiz.qs[quiz.idx];const w=q.w;
+  document.getElementById('qCount').textContent=(quiz.idx+1)+' / '+quiz.qs.length;
+  document.getElementById('qBar').style.width=(quiz.idx/quiz.qs.length*100)+'%';
+  document.getElementById('qCombo').textContent=quiz.combo>=2?('🔥 '+quiz.combo+' 콤보'):'';
+  const card=document.getElementById('qCard');
+  let typeLabel,body;
+  if(q.type==='en2ko'){
+    typeLabel='영어 → 뜻';
+    body=`<div class="qword">${w[0]}</div><div class="qipa">${w[2]?'/'+w[2]+'/':''}</div>
+      <button class="listen-btn" onclick="speak('${escapeQ(w[0])}')">🔊 발음 듣기</button>`;
+  }else if(q.type==='ko2en'){
+    typeLabel='뜻 → 영어';
+    body=`<div class="qword" style="font-size:26px">${w[3]}</div><div class="qsub">알맞은 영어 단어는?</div>`;
+  }else{
+    typeLabel='듣기 → 영어';
+    body=`<div class="qsub" style="margin-bottom:4px">잘 듣고 알맞은 뜻을 고르세요</div>
+      <button class="listen-btn big" onclick="speak('${escapeQ(w[0])}')">🔊</button>`;
+  }
+  card.innerHTML=`<div class="qtype">${typeLabel}</div>${body}`;
+  const box=document.getElementById('qChoices');box.innerHTML='';
+  q.opts.forEach(opt=>{
+    const b=document.createElement('button');b.className='choice';b.textContent=opt;
+    b.onclick=()=>answer(b,opt,q);
+    box.appendChild(b);
+  });
+  if((q.type==='en2ko'||q.type==='listen')&&ST.autoTTS)setTimeout(()=>speak(w[0]),300);
+  saveResume();
+}
+function answer(btn,opt,q){
+  const w=q.w;
+  const correct=(q.type==='ko2en')?w[0]:w[3];
+  const buttons=[...document.querySelectorAll('.choice')];
+  buttons.forEach(b=>b.disabled=true);
+  const key=w[0]+'|'+w[3];
+  if(opt===correct){
+    btn.classList.add('correct');beep(true);
+    quiz.score++;quiz.combo++;quiz.maxCombo=Math.max(quiz.maxCombo,quiz.combo);
+    ST.wrong=ST.wrong.filter(k=>k!==key);
+  }else{
+    btn.classList.add('wrong');beep(false);quiz.combo=0;
+    buttons.forEach(b=>{if(b.textContent===correct)b.classList.add('correct');});
+    if(!ST.wrong.includes(key))ST.wrong.push(key);
+  }
+  ST.todayCount++;
+  save();
+  setTimeout(()=>{
+    quiz.idx++;
+    if(quiz.idx>=quiz.qs.length)finishQuiz();
+    else renderQ();
+  },opt===correct?650:1250);
+}
+function finishQuiz(){
+  document.getElementById('qBar').style.width='100%';
+  const t=todayStr();
+  if(ST.lastDay!==t){
+    const y=new Date(Date.now()-86400000).toISOString().slice(0,10);
+    ST.streak=(ST.lastDay===y)?ST.streak+1:1;
+    ST.lastDay=t;
+  }
+  ST.resume=null;save();
+  const pct=Math.round(quiz.score/quiz.qs.length*100);
+  document.getElementById('rScore').textContent=quiz.score;
+  document.getElementById('rTotal').textContent=quiz.qs.length;
+  document.getElementById('rPct').textContent=pct+'%';
+  document.getElementById('rEmo').textContent=pct>=90?'🏆':pct>=70?'🎉':pct>=50?'👍':'💪';
+  document.getElementById('rTitle').textContent=pct>=90?'완벽해요!':pct>=70?'잘했어요!':pct>=50?'좋아요!':'다시 도전!';
+  document.getElementById('rReviewBtn').style.display=ST.wrong.length>0?'':'none';
+  quiz._lastCat=quiz.cat;quiz._lastMode=quiz.mode;
+  renderHome();
+  show('result');
+}
+
+let dictLvl='all',dictCat='all';
+function renderDict(){
+  const q=document.getElementById('dictSearch').value.trim().toLowerCase();
+  let list=DICT.filter(w=>{
+    if(dictLvl!=='all'&&String(w[4])!==dictLvl)return false;
+    if(dictCat!=='all'&&w[5]!==dictCat)return false;
+    if(q&&!(w[0].toLowerCase().includes(q)||w[3].toLowerCase().includes(q)||w[2].includes(q)))return false;
+    return true;
+  });
+  document.getElementById('dictResult').textContent=list.length+'개 단어';
+  const box=document.getElementById('dictList');
+  if(!list.length){box.innerHTML='<div class="empty">검색 결과가 없어요 😅</div>';return;}
+  box.innerHTML='';
+  const frag=document.createDocumentFragment();
+  list.slice(0,300).forEach(w=>{
+    const lv=w[4]===1?'기초':w[4]===2?'중급':'심화';
+    const d=document.createElement('div');d.className='wcard';
+    d.innerHTML=`<div class="w-main">
+      <div class="w-en">${w[0]}<span class="pos">${w[1]}</span><span class="lvl-badge lvl${w[4]}">${lv}</span></div>
+      <div class="w-ipa">${w[2]?'/'+w[2]+'/':''}</div>
+      <div class="w-ko">${w[3]}</div>
+      <div class="w-cat">${CAT_EMOJI[w[5]]||''} ${w[5]}</div>
+    </div>
+    <button class="spk">🔊</button>`;
+    d.querySelector('.spk').onclick=()=>speak(w[0]);
+    frag.appendChild(d);
+  });
+  box.appendChild(frag);
+  if(list.length>300){const m=document.createElement('div');m.className='count-line';m.style.textAlign='center';m.textContent='...외 '+(list.length-300)+'개 (검색으로 좁혀보세요)';box.appendChild(m);}
+}
+function renderCatFilters(){
+  const box=document.getElementById('catFilters');box.innerHTML='';
+  const all=document.createElement('button');all.className='chip on';all.textContent='모든 주제';all.dataset.cat='all';box.appendChild(all);
+  CATS.forEach(c=>{const b=document.createElement('button');b.className='chip';b.textContent=CAT_EMOJI[c]+' '+c;b.dataset.cat=c;box.appendChild(b);});
+  box.querySelectorAll('.chip').forEach(ch=>ch.onclick=()=>{box.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));ch.classList.add('on');dictCat=ch.dataset.cat;renderDict();});
+}
+
+let phrCat=SENT_CATS[0];
+function renderPhrFilters(){
+  const box=document.getElementById('phrFilters');box.innerHTML='';
+  SENT_CATS.forEach((c,i)=>{const b=document.createElement('button');b.className='chip'+(i===0?' on':'');b.textContent=c;b.dataset.c=c;
+    b.onclick=()=>{box.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));b.classList.add('on');phrCat=c;renderPhr();};box.appendChild(b);});
+}
+function renderPhr(){
+  const box=document.getElementById('phrList');box.innerHTML='';
+  SENT.filter(s=>s[2]===phrCat).forEach(s=>{
+    const d=document.createElement('div');d.className='scard';
+    d.innerHTML=`<div class="s-top"><div class="s-en">${s[0]}</div><button class="spk">🔊</button></div><div class="s-ko">${s[1]}</div>`;
+    d.querySelector('.spk').onclick=()=>speak(s[0]);
+    box.appendChild(d);
+  });
+}
+
+function syncSettings(){
+  document.getElementById('tgSound').classList.toggle('on',ST.sound);
+  document.getElementById('tgAutoTTS').classList.toggle('on',ST.autoTTS);
+  document.querySelectorAll('#segRate button').forEach(b=>b.classList.toggle('on',+b.dataset.rate===ST.rate));
+  document.querySelectorAll('#segGoal button').forEach(b=>b.classList.toggle('on',+b.dataset.goal===ST.goal));
+}
+document.getElementById('setBtn').onclick=()=>{syncSettings();document.getElementById('modalBg').classList.add('show');};
+document.getElementById('closeModal').onclick=()=>document.getElementById('modalBg').classList.remove('show');
+document.getElementById('modalBg').onclick=e=>{if(e.target.id==='modalBg')e.currentTarget.classList.remove('show');};
+document.getElementById('tgSound').onclick=function(){ST.sound=!ST.sound;this.classList.toggle('on',ST.sound);save();if(ST.sound)beep(true);};
+document.getElementById('tgAutoTTS').onclick=function(){ST.autoTTS=!ST.autoTTS;this.classList.toggle('on',ST.autoTTS);save();};
+document.getElementById('segRate').onclick=e=>{if(e.target.dataset.rate){ST.rate=+e.target.dataset.rate;save();syncSettings();speak('This is the speed.');}};
+document.getElementById('segGoal').onclick=e=>{if(e.target.dataset.goal){ST.goal=+e.target.dataset.goal;save();syncSettings();renderHome();}};
+document.getElementById('resetBtn').onclick=()=>{if(confirm('학습 기록(스트릭·오답·목표)을 모두 초기화할까요?')){localStorage.removeItem('engstudy');ST=Object.assign({},DEFAULT);ST.goalDate=todayStr();save();document.getElementById('modalBg').classList.remove('show');renderHome();toast('초기화되었습니다');}};
+
+document.getElementById('homeBtn').onclick=()=>{renderHome();show('home');};
+document.addEventListener('click',e=>{
+  const go=e.target.closest('[data-go]');if(!go)return;
+  const d=go.dataset.go;
+  if(d==='cat'){renderCats();show('cat');}
+  else if(d==='home'){renderHome();show('home');}
+  else if(d==='dict'){show('dict');renderDict();}
+  else if(d==='phr'){show('phr');renderPhr();}
+  else if(d==='review'){startReview();}
+  else if(d==='resume'){if(ST.resume)startQuiz(ST.resume.cat,true);}
+});
+document.getElementById('rReviewBtn').onclick=()=>startReview();
+document.getElementById('retryBtn').onclick=()=>{if(quiz&&quiz._lastMode==='review')startReview();else if(quiz)startQuiz(quiz._lastCat);};
+
+document.getElementById('dictSearch').addEventListener('input',renderDict);
+document.getElementById('lvlFilters').onclick=e=>{if(e.target.dataset.lvl){document.querySelectorAll('#lvlFilters .chip').forEach(c=>c.classList.remove('on'));e.target.classList.add('on');dictLvl=e.target.dataset.lvl;renderDict();}};
+
+renderCatFilters();renderPhrFilters();renderHome();
+</script>
+</body>
+</html>
